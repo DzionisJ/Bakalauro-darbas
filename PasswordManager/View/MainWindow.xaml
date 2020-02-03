@@ -1,0 +1,55 @@
+﻿<Window x:Class="PasswordManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:PasswordManager.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="300">
+
+    <Window.Resources>
+        <vm:DataViewModel x:Key="Info"></vm:DataViewModel>
+    </Window.Resources>
+
+    <Grid DataContext="{Binding Source={StaticResource Info} }" ClipToBounds="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/> 
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Email/Username: " Grid.Row="1" />
+        <TextBlock Text="Password: " Grid.Row="2" />
+        <TextBlock Text="Website: " Grid.Row="3" />
+
+        <TextBox Name="Emailbox" Grid.Row="1" Grid.Column="1" Text="{Binding STUFF.AccEmail, Mode=TwoWay}" />
+        <TextBox Name="PassBox" Grid.Row="2" Grid.Column="1" Text="{Binding STUFF.AccPassword, Mode=TwoWay}" />
+        <TextBox Name="WebsiteBox" Grid.Row="3" Grid.Column="1" Text="{Binding STUFF.AccWebsite, Mode=TwoWay}" />
+        <Separator Grid.Row="4" Grid.ColumnSpan="6"></Separator>
+        <Button Name="EnterNewData" Grid.Row="5" Grid.ColumnSpan="6" Command="{Binding SubmitCommand}" >Submit</Button>
+        <Separator Grid.Row="6" Grid.ColumnSpan="6"></Separator>
+
+        <DataGrid ItemsSource="{Binding LoginInfo}" Grid.Row="7" Grid.ColumnSpan="6" 
+                  AutoGenerateColumns="True" IsReadOnly="false" >
+  
+        </DataGrid>
+
+    </Grid>
+</Window>
