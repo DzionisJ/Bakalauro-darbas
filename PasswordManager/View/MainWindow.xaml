@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:PasswordManager.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="300">
-
+        
     <Window.Resources>
         <vm:DataViewModel x:Key="Info"></vm:DataViewModel>
     </Window.Resources>
@@ -46,7 +46,7 @@
         <Button Name="EnterNewData" Grid.Row="5" Grid.ColumnSpan="6" Command="{Binding SubmitCommand}" >Submit</Button>
         <Separator Grid.Row="6" Grid.ColumnSpan="6"></Separator>
 
-        <DataGrid ItemsSource="{Binding LoginInfo}" Grid.Row="7" Grid.ColumnSpan="6" 
+        <DataGrid x:Name="MainDataGrid" ItemsSource="{Binding LoginInfo}" Grid.Row="7" Grid.ColumnSpan="6" 
                   AutoGenerateColumns="True" IsReadOnly="false" >
   
         </DataGrid>

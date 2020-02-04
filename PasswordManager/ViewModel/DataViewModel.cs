@@ -29,7 +29,6 @@ namespace PasswordManager.ViewModel
             get { return stuff; }
             set { stuff = value; }
         }
-
         public string TXTemail
         {
             get { return txtEmail; }
@@ -66,20 +65,55 @@ namespace PasswordManager.ViewModel
             {
                 if (_SubmitCommand == null)
                 {
-                    _SubmitCommand = new RelayCommand(SubmitExecute, CanSubmitExecute, false);
+                    _SubmitCommand = new RelayCommand(param => this.SubmitExecute(), this.CanSubmitExecute);
+
                 }
                 return _SubmitCommand;
             }
         }
 
-        private void SubmitExecute(object parameter)
+        private void SubmitExecute()
         {
-            LoginInfo.Add(stuff);
+            //Send to DataBase
+            SqlConnection conn = new SqlConnection(@"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = master; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+
+            try
+            {
+                if (conn.State == ConnectionState.Closed)
+                {
+                    conn.Open();
+                    string query = "INSERT INTO Saugomi_duom.dbo.MainInfo (Email,Password,Website) VALUES (@Email,@Password,@Website)";
+                    SqlCommand sqlcmd = new SqlCommand(query, conn);
+                    sqlcmd.Parameters.AddWithValue("@Email", stuff.AccEmail);
+                    sqlcmd.Parameters.AddWithValue("@Password", stuff.AccPassword);
+                    sqlcmd.Parameters.AddWithValue("@Website", stuff.AccWebsite);
+
+                    int count = Convert.ToInt32(sqlcmd.ExecuteNonQuery());
+                    if (count == 1)
+                    {
+                        MessageBox.Show("Data added");                     
+                    }
+                    else
+                    {
+                        MessageBox.Show("Something went wrong");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            //  LoginInfo.Add(stuff);
         }
 
         private bool CanSubmitExecute(object parameter)//checks if any textboxes are empty
         {
-            if (string.IsNullOrEmpty(stuff.AccEmail) || string.IsNullOrEmpty(stuff.AccPassword) || string.IsNullOrEmpty(stuff.AccWebsite))
+            if (string.IsNullOrEmpty(TXTemail) || string.IsNullOrEmpty(TXTpass) || string.IsNullOrEmpty(TXTWebsite))
             {
                 return false;
             }

@@ -13,6 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+
 namespace PasswordManager
 {
     /// <summary>
@@ -23,6 +27,23 @@ namespace PasswordManager
         public MainWindow()
         {
             InitializeComponent();
+            FillDataGrid();
+
+        }
+
+        private void FillDataGrid()
+        {
+            string ConString = ConfigurationManager.ConnectionStrings["ConString"].ConnectionString;
+            string CmdString = string.Empty;
+            using (SqlConnection con = new SqlConnection(ConString))
+            {
+                CmdString = "SELECT * FROM Saugomi_duom.dbo.MainInfo";
+                SqlCommand cmd = new SqlCommand(CmdString, con);
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable("Saugomi_duom.dbo.MainInfo");
+                sda.Fill(dt);
+                MainDataGrid.ItemsSource = dt.DefaultView;
+            }
         }
     }
 }

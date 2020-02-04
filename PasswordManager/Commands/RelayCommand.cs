@@ -11,13 +11,13 @@ namespace PasswordManager.Commands
     {
         private Action<object> execute_command;
         private Func<object, bool> Can_execute_command;
-        bool CanExecuteCache;
+       // bool CanExecuteCache;
 
-        public RelayCommand(Action<object> execute_command, Func<object, bool> Can_execute_command, bool CanExecuteCache)
+        public RelayCommand(Action<object> execute_command, Func<object, bool> Can_execute_command)
         {
             this.execute_command = execute_command;
             this.Can_execute_command = Can_execute_command;
-            CanExecuteCache = CanExecuteCache;
+           // CanExecuteCache = CanExecuteCache;
         }
 
         public bool CanExecute(object parameter)
