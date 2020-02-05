@@ -37,10 +37,10 @@ namespace PasswordManager
             string CmdString = string.Empty;
             using (SqlConnection con = new SqlConnection(ConString))
             {
-                CmdString = "SELECT * FROM Saugomi_duom.dbo.MainInfo";
+                CmdString = "SELECT * FROM MainInfo";
                 SqlCommand cmd = new SqlCommand(CmdString, con);
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable("Saugomi_duom.dbo.MainInfo");
+                DataTable dt = new DataTable("MainInfo");
                 sda.Fill(dt);
                 MainDataGrid.ItemsSource = dt.DefaultView;
             }
