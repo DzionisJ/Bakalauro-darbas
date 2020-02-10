@@ -43,12 +43,15 @@
         <TextBox Name="PassBox" Grid.Row="2" Grid.Column="1" Text="{Binding STUFF.AccPassword, Mode=TwoWay}" />
         <TextBox Name="WebsiteBox" Grid.Row="3" Grid.Column="1" Text="{Binding STUFF.AccWebsite, Mode=TwoWay}" />
         <Separator Grid.Row="4" Grid.ColumnSpan="6"></Separator>
-        <Button Name="EnterNewData" Grid.Row="5" Grid.ColumnSpan="6" Command="{Binding SubmitCommand}" >Submit</Button>
+        <Button Name="EnterNewData" Grid.Row="5" Grid.ColumnSpan="6" Command="{Binding SubmitCommand}">Submit</Button>
+        <Button Name="Refresh" Grid.Row="6" Grid.ColumnSpan="6" Click="Refresh_Click" >refresh</Button>
+
         <Separator Grid.Row="6" Grid.ColumnSpan="6"></Separator>
 
-        <DataGrid x:Name="MainDataGrid" ItemsSource="{Binding LoginInfo}" Grid.Row="7" Grid.ColumnSpan="6" 
-                  AutoGenerateColumns="True" IsReadOnly="false" >
-  
+        <DataGrid x:Name="MainDataGrid" AlternatingRowBackground="Gray"  Grid.Row="7" Grid.ColumnSpan="6" 
+                  AutoGenerateColumns="true" IsReadOnly="false" >
+
+          
         </DataGrid>
 
     </Grid>

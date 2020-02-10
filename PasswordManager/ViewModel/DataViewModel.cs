@@ -14,6 +14,9 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using PasswordManager.Commands;
 
+using System.Configuration;
+
+
 namespace PasswordManager.ViewModel
 {
     class DataViewModel : INotifyPropertyChanged
@@ -27,7 +30,7 @@ namespace PasswordManager.ViewModel
         public DataModel STUFF
         {
             get { return stuff; }
-            set { stuff = value; }
+            set { stuff = value; NotifyPropertyChanged("stuff"); }
         }
         public string TXTemail
         {
@@ -44,18 +47,6 @@ namespace PasswordManager.ViewModel
             get { return txtWebsite; }
             set { txtWebsite = value; }
         }
-
-        private ObservableCollection<DataModel> AllLoginInfo = new ObservableCollection<DataModel>();
-
-          public ObservableCollection<DataModel> LoginInfo
-           {
-               get { return AllLoginInfo; }
-               set
-               {
-                   AllLoginInfo = value;
-                   NOtifyPropertyChanged("DataModel");
-               }
-           }
 
         private ICommand _SubmitCommand;
 
@@ -91,7 +82,8 @@ namespace PasswordManager.ViewModel
                     int count = Convert.ToInt32(sqlcmd.ExecuteNonQuery());
                     if (count == 1)
                     {
-                        MessageBox.Show("Data added");                     
+                        MessageBox.Show("Data added");
+
                     }
                     else
                     {
@@ -107,9 +99,19 @@ namespace PasswordManager.ViewModel
             {
                 conn.Close();
             }
-
-            //  LoginInfo.Add(stuff);
         }
+
+      /*   private ObservableCollection<DataModel> AllLoginInfo = new ObservableCollection<DataModel>();
+
+         public ObservableCollection<DataModel> LoginInfo
+         {
+             get { return AllLoginInfo; }
+             set
+             {
+                 AllLoginInfo = value;
+                 NotifyPropertyChanged("LoginInfo");
+             }
+         }*/
 
         private bool CanSubmitExecute(object parameter)//checks if any textboxes are empty
         {
@@ -125,7 +127,7 @@ namespace PasswordManager.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NOtifyPropertyChanged(string propertyName)
+        private void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
             {

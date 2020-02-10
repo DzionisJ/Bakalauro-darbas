@@ -29,6 +29,7 @@ namespace PasswordManager
             InitializeComponent();
             FillDataGrid();
 
+
         }
 
         private void FillDataGrid()
@@ -42,8 +43,14 @@ namespace PasswordManager
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable("MainInfo");
                 sda.Fill(dt);
+                MainDataGrid.Items.Refresh();
                 MainDataGrid.ItemsSource = dt.DefaultView;
             }
+        }
+
+        private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            FillDataGrid();
         }
     }
 }
