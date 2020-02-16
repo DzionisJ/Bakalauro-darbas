@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:PasswordManager.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="300">
-        
+        Title="MainWindow" Height="450" Width="600">
+
     <Window.Resources>
         <vm:DataViewModel x:Key="Info"></vm:DataViewModel>
     </Window.Resources>
@@ -46,10 +46,9 @@
         <Button Name="EnterNewData" Grid.Row="5" Grid.ColumnSpan="6" Command="{Binding SubmitCommand}">Submit</Button>
         <Button Name="Refresh" Grid.Row="6" Grid.ColumnSpan="6" Click="Refresh_Click" >refresh</Button>
 
-        <Separator Grid.Row="6" Grid.ColumnSpan="6"></Separator>
 
-        <DataGrid x:Name="MainDataGrid" AlternatingRowBackground="Gray"  Grid.Row="7" Grid.ColumnSpan="6" 
-                  AutoGenerateColumns="true" IsReadOnly="false" >
+        <DataGrid x:Name="MainDataGrid" AlternatingRowBackground="BlanchedAlmond" Grid.Row="7" Grid.ColumnSpan="6" 
+                  Background="Gray" AutoGenerateColumns="true" RowBackground="FloralWhite"  IsReadOnly="false" SelectionMode="Extended" SelectionUnit="Cell">
 
           
         </DataGrid>

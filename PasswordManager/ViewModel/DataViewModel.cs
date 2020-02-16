@@ -13,9 +13,10 @@ using PasswordManager.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using PasswordManager.Commands;
+using System.Security.Cryptography;
 
 using System.Configuration;
-
+using System.IO;
 
 namespace PasswordManager.ViewModel
 {
@@ -63,7 +64,65 @@ namespace PasswordManager.ViewModel
             }
         }
 
-        private void SubmitExecute()
+        private void SubmitExecute() 
+        {
+
+            //function to send data to DB
+            sendtoDB();
+        }
+
+        //string eencrypt
+        public static string EncryptText(string input, string password)
+        {
+            // Get the bytes of the string
+            byte[] bytesToBeEncrypted = Encoding.UTF8.GetBytes(input);
+            byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+
+            // Hash the password with SHA256
+            passwordBytes = SHA256.Create().ComputeHash(passwordBytes);
+
+            byte[] bytesEncrypted = AES_Encrypt(bytesToBeEncrypted, passwordBytes);
+
+            string resultencrypted = Convert.ToBase64String(bytesEncrypted);
+
+            return resultencrypted;
+
+        }
+
+        public static byte[] AES_Encrypt(byte[] bytesToBeEncrypted, byte[] passwordBytes)
+        {
+            byte[] encryptedBytes = null;
+
+            // Set your salt here, change it to meet your flavor:
+            // The salt bytes must be at least 8 bytes.
+            byte[] saltBytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (RijndaelManaged AES = new RijndaelManaged())
+                {
+                    AES.KeySize = 256;
+                    AES.BlockSize = 128;
+
+                    var key = new Rfc2898DeriveBytes(passwordBytes, saltBytes, 1000);
+                    AES.Key = key.GetBytes(AES.KeySize / 8);
+                    AES.IV = key.GetBytes(AES.BlockSize / 8); //initialization vector
+
+                    AES.Mode = CipherMode.CBC;
+
+                    using (var cs = new CryptoStream(ms, AES.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(bytesToBeEncrypted, 0, bytesToBeEncrypted.Length);
+                        cs.Close();
+                    }
+                    encryptedBytes = ms.ToArray();
+                }
+            }
+            return encryptedBytes;
+        }
+
+
+        private void sendtoDB()
         {
             //Send to DataBase
             SqlConnection conn = new SqlConnection(@"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = master; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
@@ -75,9 +134,11 @@ namespace PasswordManager.ViewModel
                     conn.Open();
                     string query = "INSERT INTO Saugomi_duom.dbo.MainInfo (Email,Password,Website) VALUES (@Email,@Password,@Website)";
                     SqlCommand sqlcmd = new SqlCommand(query, conn);
-                    sqlcmd.Parameters.AddWithValue("@Email", stuff.AccEmail);
-                    sqlcmd.Parameters.AddWithValue("@Password", stuff.AccPassword);
-                    sqlcmd.Parameters.AddWithValue("@Website", stuff.AccWebsite);
+
+                    //Encrypt the data before sending to DB
+                    sqlcmd.Parameters.AddWithValue("@Email", EncryptText(stuff.AccEmail, "a")); 
+                    sqlcmd.Parameters.AddWithValue("@Password", EncryptText(stuff.AccPassword, "a"));
+                    sqlcmd.Parameters.AddWithValue("@Website", EncryptText(stuff.AccWebsite, "a"));
 
                     int count = Convert.ToInt32(sqlcmd.ExecuteNonQuery());
                     if (count == 1)
@@ -101,17 +162,20 @@ namespace PasswordManager.ViewModel
             }
         }
 
-      /*   private ObservableCollection<DataModel> AllLoginInfo = new ObservableCollection<DataModel>();
+       
+        /*   private ObservableCollection<DataModel> AllLoginInfo = new ObservableCollection<DataModel>();
 
-         public ObservableCollection<DataModel> LoginInfo
-         {
-             get { return AllLoginInfo; }
-             set
-             {
-                 AllLoginInfo = value;
-                 NotifyPropertyChanged("LoginInfo");
-             }
-         }*/
+           public ObservableCollection<DataModel> LoginInfo
+           {
+               get { return AllLoginInfo; }
+               set
+               {
+                   AllLoginInfo = value;
+                   NotifyPropertyChanged("LoginInfo");
+               }
+           }*/
+
+
 
         private bool CanSubmitExecute(object parameter)//checks if any textboxes are empty
         {
