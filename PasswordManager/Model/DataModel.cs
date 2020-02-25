@@ -13,6 +13,17 @@ namespace PasswordManager.Model
         private string Password;
         private string Website;
 
+        public DataModel()
+        {
+        }
+
+        public DataModel(string Email, string Password, string Website)
+        {
+            this.Email = Email;
+            this.Password = Password;
+            this.Website = Website;
+        }
+
         public string AccEmail
         {
             get {return Email; }

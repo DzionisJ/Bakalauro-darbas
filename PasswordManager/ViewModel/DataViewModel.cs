@@ -22,16 +22,16 @@ namespace PasswordManager.ViewModel
 {
     class DataViewModel : INotifyPropertyChanged
     {
-
+        #region
         private DataModel stuff = new DataModel();
         private string txtEmail;
         private string txtPass;
         private string txtWebsite;
 
-        public DataModel STUFF
+        public DataModel STUFF //change the name
         {
             get { return stuff; }
-            set { stuff = value; NotifyPropertyChanged("stuff"); }
+            set { stuff = value; NotifyPropertyChanged("STUFF"); }
         }
         public string TXTemail
         {
@@ -50,7 +50,7 @@ namespace PasswordManager.ViewModel
         }
 
         private ICommand _SubmitCommand;
-
+        #endregion
         public ICommand SubmitCommand
         {
             get
@@ -66,7 +66,6 @@ namespace PasswordManager.ViewModel
 
         private void SubmitExecute() 
         {
-
             //function to send data to DB
             sendtoDB();
         }
@@ -121,6 +120,52 @@ namespace PasswordManager.ViewModel
             return encryptedBytes;
         }
 
+        public static string DecryptText(string input, string password)
+        {
+            // Get the bytes of the string
+            byte[] bytesToBeDecrypted = Convert.FromBase64String(input);
+            byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+            passwordBytes = SHA256.Create().ComputeHash(passwordBytes);
+
+            byte[] bytesDecrypted = AES_Decrypt(bytesToBeDecrypted, passwordBytes);
+
+            string result = Encoding.UTF8.GetString(bytesDecrypted);
+
+            return result;
+        }
+
+        public static byte[] AES_Decrypt(byte[] bytesToBeDecrypted, byte[] passwordBytes)
+        {
+            byte[] decryptedBytes = null;
+
+            // Set your salt here, change it to meet your flavor:
+            // The salt bytes must be at least 8 bytes.
+            byte[] saltBytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (RijndaelManaged AES = new RijndaelManaged())
+                {
+                    AES.KeySize = 256;
+                    AES.BlockSize = 128;
+
+                    var key = new Rfc2898DeriveBytes(passwordBytes, saltBytes, 1000);
+                    AES.Key = key.GetBytes(AES.KeySize / 8);
+                    AES.IV = key.GetBytes(AES.BlockSize / 8);
+
+                    AES.Mode = CipherMode.CBC;
+
+                    using (var cs = new CryptoStream(ms, AES.CreateDecryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(bytesToBeDecrypted, 0, bytesToBeDecrypted.Length);
+                        cs.Close();
+                    }
+                    decryptedBytes = ms.ToArray();
+                }
+            }
+
+            return decryptedBytes;
+        }
 
         private void sendtoDB()
         {
@@ -162,20 +207,62 @@ namespace PasswordManager.ViewModel
             }
         }
 
-       
-        /*   private ObservableCollection<DataModel> AllLoginInfo = new ObservableCollection<DataModel>();
 
-           public ObservableCollection<DataModel> LoginInfo
-           {
-               get { return AllLoginInfo; }
-               set
-               {
-                   AllLoginInfo = value;
-                   NotifyPropertyChanged("LoginInfo");
-               }
-           }*/
+        private ObservableCollection<DataModel> AllLoginDataList = new ObservableCollection<DataModel>();
+        public ObservableCollection<DataModel> list
+        {
+            get { return AllLoginDataList; }
+            set
+            {
+                AllLoginDataList = value;
+                NotifyPropertyChanged("list");
+            }
+        }
 
+        public DataViewModel()
+        {
+            list = new ObservableCollection<DataModel>();
+            //addini values jau ka nori is WpfViewModel i OBVlista
+            //Is OBVlisto i View
+            SqlConnection Conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Saugomi_duom;Integrated Security=True");
 
+            try
+            {
+                if (Conn.State == ConnectionState.Closed)
+                {
+                    Conn.Open();
+                    string query = "SELECT * FROM MainInfo";
+                    SqlCommand sqlcmd = new SqlCommand(query, Conn);
+                    using (SqlDataReader dataRead = sqlcmd.ExecuteReader())
+                    {
+                        if (dataRead != null)
+                        {
+                            while (dataRead.Read())
+                            {
+                                string tempEmail; 
+                                string tempPassword;
+                                string tempWebsite;
+
+                                tempEmail = dataRead["Email"].ToString();
+                                tempPassword = dataRead["Password"].ToString();
+                                tempWebsite = dataRead["Website"].ToString();
+                                 
+                                AllLoginDataList.Add(new DataModel(DecryptText(tempEmail, "a"), DecryptText(tempPassword, "a"), DecryptText(tempWebsite, "a")));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Conn.Close();
+            }
+        }
 
         private bool CanSubmitExecute(object parameter)//checks if any textboxes are empty
         {

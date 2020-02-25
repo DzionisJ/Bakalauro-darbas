@@ -11,7 +11,7 @@
         <vm:DataViewModel x:Key="Info"></vm:DataViewModel>
     </Window.Resources>
 
-    <Grid DataContext="{Binding Source={StaticResource Info} }" ClipToBounds="True">
+    <Grid  ClipToBounds="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="100"/>
@@ -44,10 +44,9 @@
         <TextBox Name="WebsiteBox" Grid.Row="3" Grid.Column="1" Text="{Binding STUFF.AccWebsite, Mode=TwoWay}" />
         <Separator Grid.Row="4" Grid.ColumnSpan="6"></Separator>
         <Button Name="EnterNewData" Grid.Row="5" Grid.ColumnSpan="6" Command="{Binding SubmitCommand}">Submit</Button>
-        <Button Name="Refresh" Grid.Row="6" Grid.ColumnSpan="6" Click="Refresh_Click" >refresh</Button>
 
 
-        <DataGrid x:Name="MainDataGrid" AlternatingRowBackground="BlanchedAlmond" Grid.Row="7" Grid.ColumnSpan="6" 
+        <DataGrid x:Name="MainDataGrid" ItemsSource="{Binding list, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AlternatingRowBackground="BlanchedAlmond" Grid.Row="7" Grid.ColumnSpan="6" 
                   Background="Gray" AutoGenerateColumns="true" RowBackground="FloralWhite"  IsReadOnly="false" SelectionMode="Extended" SelectionUnit="Cell">
 
           
