@@ -17,6 +17,8 @@ using System.Security.Cryptography;
 
 using System.Configuration;
 using System.IO;
+using CsvHelper;
+using System.Globalization;
 
 namespace PasswordManager.ViewModel
 {
@@ -261,6 +263,18 @@ namespace PasswordManager.ViewModel
             finally
             {
                 Conn.Close();
+            }
+            exportCVS();
+        }
+
+
+        public void exportCVS()
+        {
+            using (var writer = new StreamWriter("file.csv"))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(AllLoginDataList);
+                writer.Flush(); //ensure that all the data in the writer's internal buffer has been flushed to the file
             }
         }
 

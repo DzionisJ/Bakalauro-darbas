@@ -44,7 +44,7 @@
         <TextBox Name="WebsiteBox" Grid.Row="3" Grid.Column="1" Text="{Binding STUFF.AccWebsite, Mode=TwoWay}" />
         <Separator Grid.Row="4" Grid.ColumnSpan="6"></Separator>
         <Button Name="EnterNewData" Grid.Row="5" Grid.ColumnSpan="6" Command="{Binding SubmitCommand}">Submit</Button>
-
+        <Button Name="ExportCSV">CVS</Button>
 
         <DataGrid x:Name="MainDataGrid" ItemsSource="{Binding list, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AlternatingRowBackground="BlanchedAlmond" Grid.Row="7" Grid.ColumnSpan="6" 
                   Background="Gray" AutoGenerateColumns="true" RowBackground="FloralWhite"  IsReadOnly="false" SelectionMode="Extended" SelectionUnit="Cell">
