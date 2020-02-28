@@ -15,7 +15,6 @@ using System.Windows.Input;
 using PasswordManager.Commands;
 using System.Security.Cryptography;
 
-using System.Configuration;
 using System.IO;
 using CsvHelper;
 using System.Globalization;
@@ -52,8 +51,9 @@ namespace PasswordManager.ViewModel
         }
 
         private ICommand _SubmitCommand;
+        private ICommand ExportCSVCommand;
         #endregion
-        public ICommand SubmitCommand
+        public ICommand SubmitNewDataCommand
         {
             get
             {
@@ -63,6 +63,19 @@ namespace PasswordManager.ViewModel
 
                 }
                 return _SubmitCommand;
+            }
+        }
+
+        public ICommand SubmitCSVExportCommand
+        {
+            get
+            {
+                if (ExportCSVCommand == null)
+                {
+                    ExportCSVCommand = new RelayCommand(param => this.ExportCSV(), this.CanSubmitExecute);
+
+                }
+                return ExportCSVCommand;
             }
         }
 
@@ -264,13 +277,15 @@ namespace PasswordManager.ViewModel
             {
                 Conn.Close();
             }
-            exportCVS();
+          //  exportCVS();
         }
 
-
-        public void exportCVS()
+        private void ExportCSV()
         {
-            using (var writer = new StreamWriter("file.csv"))
+            //sends it to the desktop 
+            string deviceUserName = Environment.UserName;
+
+            using (var writer = new StreamWriter("C:\\Users\\"+deviceUserName+"\\Desktop\\ExportedLoginData.csv"))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
                 csv.WriteRecords(AllLoginDataList);

@@ -5,24 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:PasswordManager.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="600">
+        Title="MainWindow" Height="450" Width="600" ResizeMode="NoResize">
 
     <Window.Resources>
         <vm:DataViewModel x:Key="Info"></vm:DataViewModel>
     </Window.Resources>
 
-    <Grid  ClipToBounds="True">
+    <Grid  ClipToBounds="True" Margin="0,0,3.6,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/> 
+            <RowDefinition Height="10"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -35,22 +32,27 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Email/Username: " Grid.Row="1" />
-        <TextBlock Text="Password: " Grid.Row="2" />
-        <TextBlock Text="Website: " Grid.Row="3" />
+        <TextBlock x:Name="HeaderNewData" Text="Add new Data" Grid.Row="1"  Grid.Column="1" FontSize="24"></TextBlock>
+        <TextBlock x:Name="EmailUsername" Text="Email/Username" Grid.Row="2" Grid.Column="1" Margin="0,10,0,0" />
+        <TextBox Name="Emailbox" Grid.Row="3" Grid.Column="1" Text="{Binding STUFF.AccEmail, Mode=TwoWay}" Margin="0,10,0,0" />
+        <TextBlock Text="Password" Grid.Row="4" Grid.Column="1" Margin="0,10,0,0" />
+        <TextBox Name="PassBox" Grid.Row="5" Grid.Column="1" Text="{Binding STUFF.AccPassword, Mode=TwoWay}" Margin="0,10,0,0" />
+        <TextBlock Text="Website" Grid.Row="6"  Grid.Column="1" Margin="0,10,0,0" />
+        <TextBox Name="WebsiteBox" Grid.Row="7" Grid.Column="1" Text="{Binding STUFF.AccWebsite, Mode=TwoWay}" Margin="0,10,0,0" />
+        <Button Name="EnterNewData" Grid.Row="8" Grid.Column="1" Command="{Binding SubmitNewDataCommand}" Margin="0,10,0,0">Submit</Button>
+        <!--<Button Name="ExportCSV" Command="{Binding SubmitCSVExportCommand}">CSV</Button>-->
 
-        <TextBox Name="Emailbox" Grid.Row="1" Grid.Column="1" Text="{Binding STUFF.AccEmail, Mode=TwoWay}" />
-        <TextBox Name="PassBox" Grid.Row="2" Grid.Column="1" Text="{Binding STUFF.AccPassword, Mode=TwoWay}" />
-        <TextBox Name="WebsiteBox" Grid.Row="3" Grid.Column="1" Text="{Binding STUFF.AccWebsite, Mode=TwoWay}" />
-        <Separator Grid.Row="4" Grid.ColumnSpan="6"></Separator>
-        <Button Name="EnterNewData" Grid.Row="5" Grid.ColumnSpan="6" Command="{Binding SubmitCommand}">Submit</Button>
-        <Button Name="ExportCSV">CVS</Button>
+        <!--<DataGrid x:Name="MainDataGrid" ItemsSource="{Binding list, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AlternatingRowBackground="BlanchedAlmond" 
+                  Background="Gray" AutoGenerateColumns="true" RowBackground="FloralWhite"  IsReadOnly="false"
+                  SelectionMode="Extended" SelectionUnit="Cell" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3">
+        </DataGrid>-->
 
-        <DataGrid x:Name="MainDataGrid" ItemsSource="{Binding list, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AlternatingRowBackground="BlanchedAlmond" Grid.Row="7" Grid.ColumnSpan="6" 
-                  Background="Gray" AutoGenerateColumns="true" RowBackground="FloralWhite"  IsReadOnly="false" SelectionMode="Extended" SelectionUnit="Cell">
+        <Grid Margin="4.8,0.4,0.4,177"  Grid.RowSpan="10" Grid.Column="2" Grid.Row="1">
 
-          
-        </DataGrid>
+            <DataGrid x:Name="MainDataGrid" ItemsSource="{Binding list, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AlternatingRowBackground="BlanchedAlmond" 
+                  Background="Gray" AutoGenerateColumns="true" RowBackground="FloralWhite"  IsReadOnly="false"
+                  SelectionMode="Extended" SelectionUnit="Cell" Width="auto" Margin="0,47,0,0"/>
+        </Grid>
 
     </Grid>
 </Window>
