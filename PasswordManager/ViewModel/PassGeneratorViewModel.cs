@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,25 +10,31 @@ using PasswordManager.Model;
 
 namespace PasswordManager.ViewModel
 {
-    class PassGeneratorViewModel
+    class PassGeneratorViewModel : INotifyPropertyChanged
     {
 
-        private ICommand _SubmitCommand;
+        private ICommand _SubmitCommand2;
 
         private PasswordGenDataModel _test = new PasswordGenDataModel();
-        private string txtEmail;
+        private string txtpas;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public PasswordGenDataModel test //change the name
         {
             get { return _test; }
             set { _test = value;}
         }
-        public string TXTemail
+        public string passssss
         {
-            get { return txtEmail; }
-            set { txtEmail = value; }
+            get { return txtpas; }
+            set { txtpas = value; NotifyPropertyChanged("passssss"); }
         }
 
+        public PassGeneratorViewModel()
+        {
+
+        }
         public string genPas()
         {
             /*string[] symmbols = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "Y", "W", "X", "Z",
@@ -42,8 +49,8 @@ namespace PasswordManager.ViewModel
             {
                 chars[i] = symmbols[rnd.Next(0, symmbols.Length)];
             }
-            return new string(chars);
-
+            //  return new string(chars);
+            return passssss = "utycyrx";//chars.ToString();
 
             // AllLoginDataList.Add(new DataModel(DecryptText(tempEmail, "a"), DecryptText(tempPassword, "a"), DecryptText(tempWebsite, "a")));
         }
@@ -52,29 +59,38 @@ namespace PasswordManager.ViewModel
         {
             get
             {
-                if (_SubmitCommand == null)
+                if (_SubmitCommand2 == null)
                 {
-                    _SubmitCommand = new RelayCommand(param => this.SubmitExecutetest(), this.CanSubmitExecute);
+                    _SubmitCommand2 = new RelayCommand(param => this.SubmitExecutetest(), this.CanSubmitExecute);
 
                 }
-                return _SubmitCommand;
+                return _SubmitCommand2;
             }
         }
 
         private void SubmitExecutetest()
         {
             genPas();
+
         }
 
         private bool CanSubmitExecute(object parameter)//checks if any textboxes are empty
         {
-            if (string.IsNullOrEmpty(TXTemail))
+            if (string.IsNullOrEmpty(passssss))
             {
                 return false;
             }
             else
             {
                 return true;
+            }
+        }
+
+        protected void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }

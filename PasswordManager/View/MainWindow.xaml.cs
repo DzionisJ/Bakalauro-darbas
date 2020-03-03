@@ -19,6 +19,7 @@ using System.Data;
 using PasswordManager.Model;
 using System.IO;
 using PasswordManager.ViewModel;
+using PasswordManager.View;
 
 namespace PasswordManager 
 {
@@ -36,8 +37,8 @@ namespace PasswordManager
 
         private void Password_Generator_Click(object sender, RoutedEventArgs e)
         {
-            Window PasswordGeneratorWindow = new Window();
-            PasswordGeneratorWindow.Show();
+            PassGeneratorWindow dash = new PassGeneratorWindow();
+            dash.Show();
         }
     }
 }

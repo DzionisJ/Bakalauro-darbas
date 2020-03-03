@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PasswordManager.Model
 {
-    class PasswordGenDataModel
+    class PasswordGenDataModel : INotifyPropertyChanged
     {
 
         private string _GenPass;
@@ -16,10 +17,9 @@ namespace PasswordManager.Model
         {
         }
 
-        public PasswordGenDataModel(string GeneratedPass, int GenPasslength)
+        public PasswordGenDataModel(string GeneratedPass)
         {
             this._GenPass = GeneratedPass;
-            this._GenPassLength = GenPasslength;
         }
 
         public string GenPass
@@ -34,6 +34,14 @@ namespace PasswordManager.Model
             set { _GenPassLength = value; }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
 
+        protected void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
 }
