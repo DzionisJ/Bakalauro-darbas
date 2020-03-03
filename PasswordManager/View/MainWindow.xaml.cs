@@ -33,6 +33,11 @@ namespace PasswordManager
             DataContext = new DataViewModel();
 
         }
-    
+
+        private void Password_Generator_Click(object sender, RoutedEventArgs e)
+        {
+            Window PasswordGeneratorWindow = new Window();
+            PasswordGeneratorWindow.Show();
+        }
     }
 }
