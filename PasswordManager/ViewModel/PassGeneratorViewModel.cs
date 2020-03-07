@@ -20,39 +20,35 @@ namespace PasswordManager.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public PasswordGenDataModel test //change the name
+        public PasswordGenDataModel test 
         {
             get { return _test; }
             set { _test = value;}
         }
-        public string passssss
+        public string Password
         {
             get { return txtpas; }
-            set { txtpas = value; NotifyPropertyChanged("passssss"); }
+            set { txtpas = value; NotifyPropertyChanged("Password"); }
         }
 
         public PassGeneratorViewModel()
         {
-
+            
         }
         public string genPas()
         {
-            /*string[] symmbols = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "Y", "W", "X", "Z",
-                                  "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","x","y","z","w",
-                                   "1","2","3","4","5","6","7","8","9"};*/
-
-            string symmbols = "QWERTYUIOPASDFGHJKLZXCVBNMabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*?";
+            
+            string Usable_Symbols = "QWERTYUIOPASDFGHJKLZXCVBNMabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*?";
             Random rnd = new Random();
 
-            char[] chars = new char[12];
-            for (int i = 0; i < 12; i++)
+            char[] chars = new char[20];
+            for (int i = 0; i < 20; i++)
             {
-                chars[i] = symmbols[rnd.Next(0, symmbols.Length)];
+                chars[i] = Usable_Symbols[rnd.Next(0, Usable_Symbols.Length)];
             }
-            //  return new string(chars);
-            return passssss = "utycyrx";//chars.ToString();
+            string Generated_pass = new string(chars);
 
-            // AllLoginDataList.Add(new DataModel(DecryptText(tempEmail, "a"), DecryptText(tempPassword, "a"), DecryptText(tempWebsite, "a")));
+            return Password = Generated_pass;
         }
 
         public ICommand SubmitNewpass
@@ -71,12 +67,11 @@ namespace PasswordManager.ViewModel
         private void SubmitExecutetest()
         {
             genPas();
-
         }
 
-        private bool CanSubmitExecute(object parameter)//checks if any textboxes are empty
+        private bool CanSubmitExecute(object parameter)//checks if any textboxes are empty need to rid of it
         {
-            if (string.IsNullOrEmpty(passssss))
+            if (string.IsNullOrEmpty(Password))
             {
                 return false;
             }

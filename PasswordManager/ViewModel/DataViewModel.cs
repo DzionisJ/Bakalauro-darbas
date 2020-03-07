@@ -277,7 +277,6 @@ namespace PasswordManager.ViewModel
             {
                 Conn.Close();
             }
-          //  exportCVS();
         }
 
         private void ExportCSV()

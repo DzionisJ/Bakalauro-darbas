@@ -1,4 +1,5 @@
 ﻿using PasswordManager.Model;
+using PasswordManager.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,8 +24,9 @@ namespace PasswordManager.View
         public PassGeneratorWindow()
         {
             InitializeComponent();
-            DataContext = new PasswordGenDataModel();
+            this.DataContext = new PassGeneratorViewModel();
 
+           // DataContext = new 
         }
     }
 }

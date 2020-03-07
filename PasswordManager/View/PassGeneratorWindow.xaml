@@ -5,32 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PasswordManager.ViewModel"
         mc:Ignorable="d"
-        Title="PassGeneratorWindow" Height="450" Width="500">
-    <Grid>
-        <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="300"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        Title="Password Generator" Height="100" Width="325">
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+        <StackPanel Background="LightGray">
 
-
-        <TextBox Name="Generated_password_box" Grid.Column="1" Grid.Row="1" Text="{Binding GenPass}" ></TextBox>
-        <Button Name="generatepass" Grid.Column="1" Grid.Row="2" Command="{Binding SubmitNewpass}" >Generate</Button>
-
-        </Grid>
+        <TextBox Name="Generated_password_box" Text="{Binding Path=Password}" IsReadOnly="True" ></TextBox>
+        <Separator Height="10"></Separator>
+        <Button Name="generatepass" Background="FloralWhite" Command="{Binding SubmitNewpass}" >Generate</Button>
+    </StackPanel>
 </Window>

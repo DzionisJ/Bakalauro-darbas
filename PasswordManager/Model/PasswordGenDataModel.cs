@@ -11,7 +11,7 @@ namespace PasswordManager.Model
     {
 
         private string _GenPass;
-        private int _GenPassLength;
+        private int _GenPassLenght;
 
         public PasswordGenDataModel()
         {
@@ -27,11 +27,10 @@ namespace PasswordManager.Model
             get { return _GenPass; }
             set { _GenPass = value; }
         }
-
-        public int GenPassLength
+        public int GenPassLenght
         {
-            get { return _GenPassLength; }
-            set { _GenPassLength = value; }
+            get { return _GenPassLenght; }
+            set { _GenPassLenght = value; }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
