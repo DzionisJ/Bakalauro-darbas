@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PasswordManager.ViewModel"
         mc:Ignorable="d"
-        Title="Password Generator" Height="100" Width="325">
+        Title="Password Generator" Height="120" Width="325">
 
         <StackPanel Background="LightGray">
 
-        <TextBox Name="Generated_password_box" Text="{Binding Path=Password}" IsReadOnly="True" ></TextBox>
+        <TextBox Name="Generated_password_box" Text="{Binding Path=Password}" FontSize="24" IsReadOnly="True" ></TextBox>
         <Separator Height="10"></Separator>
-        <Button Name="generatepass" Background="FloralWhite" Command="{Binding SubmitNewpass}" >Generate</Button>
+        <Button Name="generatepass" Background="FloralWhite" Command="{Binding SubmitNewpass}" FontSize="24" >Generate</Button>
     </StackPanel>
 </Window>

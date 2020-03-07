@@ -1,5 +1,4 @@
 ﻿using PasswordManager.Model;
-using PasswordManager.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +16,13 @@ using System.Windows.Shapes;
 namespace PasswordManager.View
 {
     /// <summary>
-    /// Interaction logic for PassGeneratorWindow.xaml
+    /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    public partial class PassGeneratorWindow : Window
+    public partial class LoginWindow : Window
     {
-        public PassGeneratorWindow()
+        public LoginWindow()
         {
             InitializeComponent();
-            this.DataContext = new PassGeneratorViewModel();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
     }

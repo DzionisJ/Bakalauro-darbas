@@ -27,28 +27,29 @@ namespace PasswordManager.Model
         public string AccEmail
         {
             get {return Email; }
-            set { Email = value; } //OnPropertyChanged(AccEmail); }
+            set { Email = value;
+                OnPropertyChanged(AccEmail); }
         }
         public string AccPassword
         {
             get { return Password; }
-            set { Password = value; }// OnPropertyChanged(AccPassword); }
+            set { Password = value;
+                OnPropertyChanged(AccPassword); }
         }
         public string AccWebsite
         {
             get { return Website; }
-            set { Website = value; }// OnPropertyChanged(AccWebsite); }
+            set { Website = value;
+                OnPropertyChanged(AccWebsite); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string p)
         {
-            PropertyChangedEventHandler ph = PropertyChanged;
-
-            if (ph != null)
+            if (PropertyChanged != null)
             {
-                ph(this, new PropertyChangedEventArgs(p));
+                PropertyChanged(this, new PropertyChangedEventArgs(p));
             }
         }
     }

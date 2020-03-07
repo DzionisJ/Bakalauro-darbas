@@ -23,7 +23,7 @@ namespace PasswordManager.ViewModel
 {
     class DataViewModel : INotifyPropertyChanged
     {
-        #region
+        #region variables
         private DataModel stuff = new DataModel();
         private string txtEmail;
         private string txtPass;
@@ -88,16 +88,18 @@ namespace PasswordManager.ViewModel
         //string eencrypt
         public static string EncryptText(string input, string password)
         {
-            // Get the bytes of the string
+            /*Entered info is sent here with the password as strings*/
+            // Getting the bytes of the strings
+
             byte[] bytesToBeEncrypted = Encoding.UTF8.GetBytes(input);
             byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
 
-            // Hash the password with SHA256
+            // Hashing the password with SHA256
             passwordBytes = SHA256.Create().ComputeHash(passwordBytes);
 
-            byte[] bytesEncrypted = AES_Encrypt(bytesToBeEncrypted, passwordBytes);
+            byte[] Encryptedbytes = AES_Encrypt(bytesToBeEncrypted, passwordBytes);
 
-            string resultencrypted = Convert.ToBase64String(bytesEncrypted);
+            string resultencrypted = Convert.ToBase64String(Encryptedbytes);
 
             return resultencrypted;
 
@@ -107,8 +109,6 @@ namespace PasswordManager.ViewModel
         {
             byte[] encryptedBytes = null;
 
-            // Set your salt here, change it to meet your flavor:
-            // The salt bytes must be at least 8 bytes.
             byte[] saltBytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
 
             using (MemoryStream ms = new MemoryStream())
@@ -118,8 +118,8 @@ namespace PasswordManager.ViewModel
                     AES.KeySize = 256;
                     AES.BlockSize = 128;
 
-                    var key = new Rfc2898DeriveBytes(passwordBytes, saltBytes, 1000);
-                    AES.Key = key.GetBytes(AES.KeySize / 8);
+                    var key = new Rfc2898DeriveBytes(passwordBytes, saltBytes, 1000); //derrives the key
+                    AES.Key = key.GetBytes(AES.KeySize / 8);//key for the symetric algorithm
                     AES.IV = key.GetBytes(AES.BlockSize / 8); //initialization vector
 
                     AES.Mode = CipherMode.CBC;
@@ -129,7 +129,8 @@ namespace PasswordManager.ViewModel
                         cs.Write(bytesToBeEncrypted, 0, bytesToBeEncrypted.Length);
                         cs.Close();
                     }
-                    encryptedBytes = ms.ToArray();
+
+                    encryptedBytes = ms.ToArray(); // ms = memory stream
                 }
             }
             return encryptedBytes;
@@ -185,25 +186,26 @@ namespace PasswordManager.ViewModel
         private void sendtoDB()
         {
             //Send to DataBase
-            SqlConnection conn = new SqlConnection(@"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = master; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
-
+            SqlConnection connection = new SqlConnection(@"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = master; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+            string EncryptionPass = "YB6/**ij";
             try
             {
-                if (conn.State == ConnectionState.Closed)
+                if (connection.State == ConnectionState.Closed)
                 {
-                    conn.Open();
+                    connection.Open();
                     string query = "INSERT INTO Saugomi_duom.dbo.MainInfo (Email,Password,Website) VALUES (@Email,@Password,@Website)";
-                    SqlCommand sqlcmd = new SqlCommand(query, conn);
+                    SqlCommand sqlcommand = new SqlCommand(query, connection);
 
                     //Encrypt the data before sending to DB
-                    sqlcmd.Parameters.AddWithValue("@Email", EncryptText(stuff.AccEmail, "a")); 
-                    sqlcmd.Parameters.AddWithValue("@Password", EncryptText(stuff.AccPassword, "a"));
-                    sqlcmd.Parameters.AddWithValue("@Website", EncryptText(stuff.AccWebsite, "a"));
+                    sqlcommand.Parameters.AddWithValue("@Email", EncryptText(stuff.AccEmail, EncryptionPass));
+                    sqlcommand.Parameters.AddWithValue("@Password", EncryptText(stuff.AccPassword, EncryptionPass));
+                    sqlcommand.Parameters.AddWithValue("@Website", EncryptText(stuff.AccWebsite, EncryptionPass));
 
-                    int count = Convert.ToInt32(sqlcmd.ExecuteNonQuery());
+                    int count = Convert.ToInt32(sqlcommand.ExecuteNonQuery());
                     if (count == 1)
                     {
                         MessageBox.Show("Data added");
+                        
 
                     }
                     else
@@ -218,7 +220,7 @@ namespace PasswordManager.ViewModel
             }
             finally
             {
-                conn.Close();
+                connection.Close();
             }
         }
 
@@ -237,17 +239,15 @@ namespace PasswordManager.ViewModel
         public DataViewModel()
         {
             list = new ObservableCollection<DataModel>();
-            //addini values jau ka nori is WpfViewModel i OBVlista
-            //Is OBVlisto i View
-            SqlConnection Conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Saugomi_duom;Integrated Security=True");
-
+            SqlConnection Connection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Saugomi_duom;Integrated Security=True");
+            string EncryptionPass = "YB6/**ij";
             try
             {
-                if (Conn.State == ConnectionState.Closed)
+                if (Connection.State == ConnectionState.Closed)
                 {
-                    Conn.Open();
+                    Connection.Open();
                     string query = "SELECT * FROM MainInfo";
-                    SqlCommand sqlcmd = new SqlCommand(query, Conn);
+                    SqlCommand sqlcmd = new SqlCommand(query, Connection);
                     using (SqlDataReader dataRead = sqlcmd.ExecuteReader())
                     {
                         if (dataRead != null)
@@ -262,7 +262,7 @@ namespace PasswordManager.ViewModel
                                 tempPassword = dataRead["Password"].ToString();
                                 tempWebsite = dataRead["Website"].ToString();
                                  
-                                AllLoginDataList.Add(new DataModel(DecryptText(tempEmail, "a"), DecryptText(tempPassword, "a"), DecryptText(tempWebsite, "a")));
+                                AllLoginDataList.Add(new DataModel(DecryptText(tempEmail, EncryptionPass), DecryptText(tempPassword, EncryptionPass), DecryptText(tempWebsite, EncryptionPass)));
                             }
                         }
                     }
@@ -275,21 +275,31 @@ namespace PasswordManager.ViewModel
             }
             finally
             {
-                Conn.Close();
+                Connection.Close();
             }
         }
 
         private void ExportCSV()
         {
-            //sends it to the desktop 
-            string deviceUserName = Environment.UserName;
 
-            using (var writer = new StreamWriter("C:\\Users\\"+deviceUserName+"\\Desktop\\ExportedLoginData.csv"))
-            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            if (MessageBox.Show("Are you sure you wish all of your Login data to be exported to the Desktop?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
             {
-                csv.WriteRecords(AllLoginDataList);
-                writer.Flush(); //ensure that all the data in the writer's internal buffer has been flushed to the file
+               // IF NO = Do nothing
             }
+            else
+            {
+                //If YES = sends all of the stored data to the desktop
+                //Perfect if you want to use the same data in a different Password Manager quickly
+                string deviceUserName = Environment.UserName;
+
+                using (var writer = new StreamWriter("C:\\Users\\" + deviceUserName + "\\Desktop\\ExportedLoginData.csv"))
+                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
+                    csv.WriteRecords(AllLoginDataList);
+                    writer.Flush(); //ensure that all the data in the writer's internal buffer has been flushed to the file
+                }
+            }
+           
         }
 
         private bool CanSubmitExecute(object parameter)//checks if any textboxes are empty

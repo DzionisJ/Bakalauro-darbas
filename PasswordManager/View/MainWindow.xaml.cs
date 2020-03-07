@@ -31,7 +31,8 @@ namespace PasswordManager
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new DataViewModel();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            this.DataContext = new DataViewModel();
 
         }
 
