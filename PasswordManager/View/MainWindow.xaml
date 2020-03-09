@@ -30,6 +30,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -43,12 +44,12 @@
         <Button Name="EnterNewData" Background="SlateGray" Grid.Row="8" Grid.Column="1" FontSize="14"  Command="{Binding SubmitNewDataCommand}" Margin="0,10,0,0">Submit</Button>
         <Button Name="ExportCSV" Grid.Row="9" Background="SlateGray"  Grid.Column="1" FontSize="14"  Command="{Binding SubmitCSVExportCommand}">Export CSV Format</Button>
         <Button Name="Password_Generator" Grid.Row="10" Background="SlateGray"  Grid.Column="1" FontSize="14"  Click="Password_Generator_Click">Password Generator</Button>
+        <Button Name="Username_generator" Grid.Column="1" Grid.Row="11" Background="SlateGray" FontSize="14" Click="Username_generator_Click" >UserName Generator</Button>
 
-        
-        
-        <Grid Margin="4.8,0.4,0.4,177"  Grid.RowSpan="11" Grid.Column="2" Grid.Row="1">
 
-            <DataGrid x:Name="MainDataGrid" FontSize="14" ItemsSource="{Binding list, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AlternatingRowBackground="BlanchedAlmond" 
+        <Grid Margin="4.8,0.4,0.4,177"  Grid.RowSpan="12" Grid.Column="2" Grid.Row="1">
+
+            <DataGrid x:Name="MainDataGrid" FontSize="14" ItemsSource="{Binding list, Mode=OneWay}" AlternatingRowBackground="BlanchedAlmond" 
                   Background="Gray" RowBackground="FloralWhite"  IsReadOnly="false"
                   SelectionMode="Extended" SelectionUnit="Cell" Width="auto" Margin="0,47,0,-60" AutoGenerateColumns="False">
 

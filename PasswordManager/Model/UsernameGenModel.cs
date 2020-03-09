@@ -7,30 +7,23 @@ using System.Threading.Tasks;
 
 namespace PasswordManager.Model
 {
-    class UsernameGenDataModel : INotifyPropertyChanged
+    class UsernameGenModel : INotifyPropertyChanged
     {
+        private string _GenUsername;
 
-        private string _GenPass;
-        private int _GenPassLenght;//Not yet used
-
-        public UsernameGenDataModel()
+        public UsernameGenModel()
         {
         }
 
-        public UsernameGenDataModel(string GeneratedPass)
+        public UsernameGenModel(string GeneratedUsername)
         {
-            this._GenPass = GeneratedPass;
+            this._GenUsername = GeneratedUsername;
         }
 
         public string GenPass
         {
-            get { return _GenPass; }
-            set { _GenPass = value; }
-        }
-        public int GenPassLenght
-        {
-            get { return _GenPassLenght; }
-            set { _GenPassLenght = value; }
+            get { return _GenUsername; }
+            set { _GenUsername = value; }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -1,44 +1,38 @@
-﻿using System;
+﻿using PasswordManager.Commands;
+using PasswordManager.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using PasswordManager.Commands;
-using PasswordManager.Model;
 
 namespace PasswordManager.ViewModel
 {
-    class PassGeneratorViewModel : INotifyPropertyChanged
+    class UserNameGenViewModel : INotifyPropertyChanged
     {
 
-        private ICommand _SubmitCommand2;
+        private ICommand _submitnewusernamecommand;
 
-        private UsernameGenDataModel _test = new UsernameGenDataModel();
-        private string txtpas;
+        private UsernameGenModel username = new UsernameGenModel();
+        private string txtusername;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public UsernameGenDataModel test 
+        public UsernameGenModel User
         {
-            get { return _test; }
-            set { _test = value;}
+            get { return username; }
+            set { username = value; }
         }
-        public string Password
+        public string Username
         {
-            get { return txtpas; }
-            set { txtpas = value; NotifyPropertyChanged("Password"); }
+            get { return txtusername; }
+            set { txtusername = value; NotifyPropertyChanged("Username"); }
         }
+ 
+        public string genUser()
+        {
 
-        public PassGeneratorViewModel()
-        {
-            
-        }
-        public string genPas()
-        {
-            
-            string Usable_Symbols = "QWERTYUIOPASDFGHJKLZXCVBNMabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*?";
+            string Usable_Symbols = "QWERTYUIOPASDFGHJKLZXCVBNMabcdefghijklmnopqrstuvwxyz0123456789";
             Random rnd = new Random();
 
             char[] chars = new char[20];
@@ -48,30 +42,30 @@ namespace PasswordManager.ViewModel
             }
             string Generated_pass = new string(chars);
 
-            return Password = Generated_pass;
+            return Username = Generated_pass;
         }
 
-        public ICommand SubmitNewpass
+        public ICommand SubmitNewUsername
         {
             get
             {
-                if (_SubmitCommand2 == null)
+                if (_submitnewusernamecommand == null)
                 {
-                    _SubmitCommand2 = new RelayCommand(param => this.SubmitExecutetest(), this.CanSubmitExecute);
+                    _submitnewusernamecommand = new RelayCommand(param => this.SubmitExecutetest(), this.CanSubmitExecute);
 
                 }
-                return _SubmitCommand2;
+                return _submitnewusernamecommand;
             }
         }
 
         private void SubmitExecutetest()
         {
-            genPas();
+            genUser();
         }
 
         private bool CanSubmitExecute(object parameter)//checks if any textboxes are empty need to rid of it
         {
-            if (string.IsNullOrEmpty(Password))
+            if (string.IsNullOrEmpty(Username))
             {
                 return false;
             }
@@ -80,6 +74,8 @@ namespace PasswordManager.ViewModel
                 return true;
             }
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         protected void NotifyPropertyChanged(string propertyName)
         {

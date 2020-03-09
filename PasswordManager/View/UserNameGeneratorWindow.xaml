@@ -1,0 +1,15 @@
+﻿<Window x:Class="PasswordManager.View.UserNameGeneratorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PasswordManager.ViewModel"
+        mc:Ignorable="d"
+        Title="Username Generator"  Height="120" Width="325">
+    <StackPanel Background="LightGray">
+
+        <TextBox Name="Generated_username_box" Text="{Binding Path=Username}" FontSize="24" IsReadOnly="True" ></TextBox>
+        <Separator Height="10"></Separator>
+        <Button Name="generateusername" Background="FloralWhite" Command="{Binding SubmitNewUsername}" FontSize="24" >Generate</Button>
+    </StackPanel>
+</Window>

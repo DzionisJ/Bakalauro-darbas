@@ -41,5 +41,11 @@ namespace PasswordManager
             PassGeneratorWindow dash = new PassGeneratorWindow();
             dash.Show();
         }
+
+        private void Username_generator_Click(object sender, RoutedEventArgs e)
+        {
+            UserNameGeneratorWindow dash = new UserNameGeneratorWindow();
+            dash.Show();
+        }
     }
 }
