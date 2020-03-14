@@ -7,8 +7,20 @@
         mc:Ignorable="d"
         Title="Manager" Height="450" Width="850" ResizeMode="NoResize" Background="LightGray">
 
+
     <Window.Resources>
         <vm:DataViewModel x:Key="Info"></vm:DataViewModel>
+
+        <Style x:Key="HeaderStyleE" TargetType="{x:Type DataGrid}">
+            <Setter Property="ColumnHeaderStyle" Value="{DynamicResource HeaderStyleE}"/>
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Background" Value="#FFDFA561" />
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
     </Window.Resources>
 
     <Grid  ClipToBounds="True" Margin="0,0,3.6,0">
@@ -46,19 +58,46 @@
         <Button Name="Password_Generator" Grid.Row="10" Background="SlateGray"  Grid.Column="1" FontSize="14"  Click="Password_Generator_Click">Password Generator</Button>
         <Button Name="Username_generator" Grid.Column="1" Grid.Row="11" Background="SlateGray" FontSize="14" Click="Username_generator_Click" >UserName Generator</Button>
 
+        
 
         <Grid Margin="4.8,0.4,0.4,177"  Grid.RowSpan="12" Grid.Column="2" Grid.Row="1">
 
-            <DataGrid x:Name="MainDataGrid" FontSize="14" ItemsSource="{Binding list, Mode=OneWay}" AlternatingRowBackground="BlanchedAlmond" 
-                  Background="Gray" RowBackground="FloralWhite"  IsReadOnly="false"
-                  SelectionMode="Extended" SelectionUnit="Cell" Width="auto" Margin="0,47,0,-60" AutoGenerateColumns="False">
+
+            <DataGrid x:Name="MainDataGrid" ItemsSource="{Binding list, Mode=OneWay}" Style="{DynamicResource HeaderStyleE}" AlternatingRowBackground="BlanchedAlmond" 
+                 AutoGenerateColumns="False" SelectionUnit="Cell" Margin="0,0,0.6,-83">
+
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="SnapsToDevicePixels" Value="True" />
+                        <Setter Property="Background" Value="FloralWhite"/>
+                        <Style.Triggers>
+                            <Trigger Property="AlternationIndex" Value="1">
+                                <Setter Property="Background" Value="#FFD0D0E0"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F9F99F"/>
+                            </Trigger>
+                            <Trigger Property="Validation.HasError" Value="True" >
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="#FFB61111" ShadowDepth="0" BlurRadius="20" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+
+              
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Email/Username" Binding="{Binding AccEmail}"/>
-                    <DataGridTextColumn Header="Password" Binding="{Binding AccPassword}"/>
-                    <DataGridTextColumn Header="Website/App" Binding="{Binding AccWebsite}"/>
+                    <DataGridTextColumn Header="Email/Username" FontSize="14" Binding="{Binding AccEmail}"/>
+                    <DataGridTextColumn Header="Password" FontSize="14" Binding="{Binding AccPassword}"/>
+                    <DataGridTextColumn Header="Website/App" FontSize="14" Binding="{Binding AccWebsite}"/>
                 </DataGrid.Columns>
             </DataGrid>
+            
+            
         </Grid>
 
     </Grid>
