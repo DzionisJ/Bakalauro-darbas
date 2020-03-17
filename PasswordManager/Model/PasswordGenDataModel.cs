@@ -11,7 +11,10 @@ namespace PasswordManager.Model
     {
 
         private string _GenPass;
-        private int _GenPassLenght;//Not yet used
+        private bool dontUseSpecialChars;
+        private bool dontUseUpperCase;
+        private bool dontUseLowerCase;
+        private bool dontUseDigits;
 
         public UsernameGenDataModel()
         {
@@ -27,11 +30,28 @@ namespace PasswordManager.Model
             get { return _GenPass; }
             set { _GenPass = value; }
         }
-        public int GenPassLenght
+        public bool DontUseSpecialChars
         {
-            get { return _GenPassLenght; }
-            set { _GenPassLenght = value; }
+            get { return dontUseSpecialChars; }
+            set { dontUseSpecialChars = value; }
         }
+
+        public bool DontUseUpperCase
+        {
+            get { return dontUseUpperCase; }
+            set { dontUseUpperCase = value; }
+        }
+        public bool DontUseLowerCase
+        {
+            get { return dontUseLowerCase; }
+            set { dontUseLowerCase = value; }
+        }
+        public bool DontUseDigits
+        {
+            get { return dontUseDigits; }
+            set { dontUseDigits = value; }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

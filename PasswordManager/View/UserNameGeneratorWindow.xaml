@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:PasswordManager.ViewModel"
         mc:Ignorable="d"
         Title="Username Generator"  Height="120" Width="325">
-    <StackPanel Background="LightGray">
+    <StackPanel Background="LightGoldenrodYellow">
 
         <TextBox Name="Generated_username_box" Text="{Binding Path=Username}" FontSize="24" IsReadOnly="True" ></TextBox>
         <Separator Height="10"></Separator>
-        <Button Name="generateusername" Background="FloralWhite" Command="{Binding SubmitNewUsername}" FontSize="24" >Generate</Button>
+        <Button Name="generateusername" Background="Orange" Command="{Binding SubmitNewUsername}" FontSize="24" >Generate</Button>
     </StackPanel>
 </Window>

@@ -23,7 +23,7 @@
 
     </Window.Resources>
 
-    <Grid  ClipToBounds="True" Margin="0,0,3.6,0">
+    <Grid  ClipToBounds="True" Background="LightGoldenrodYellow" Margin="0,0,3.6,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="auto"/>
@@ -53,10 +53,10 @@
         <TextBox Name="PassBox"  Width="250" Grid.Row="5" Grid.Column="1" FontSize="14"  Text="{Binding STUFF.AccPassword, Mode=TwoWay}" Margin="0,10,0,0" />
         <TextBlock Text="Website" Width="250"  Grid.Row="6"  Grid.Column="1" FontSize="14"  Margin="0,10,0,0" />
         <TextBox Name="WebsiteBox" Width="250"  Grid.Row="7" Grid.Column="1" FontSize="14"  Text="{Binding STUFF.AccWebsite, Mode=TwoWay}" Margin="0,10,0,0" />
-        <Button Name="EnterNewData" Background="SlateGray" Grid.Row="8" Grid.Column="1" FontSize="14"  Command="{Binding SubmitNewDataCommand}" Margin="0,10,0,0">Submit</Button>
-        <Button Name="ExportCSV" Grid.Row="9" Background="SlateGray"  Grid.Column="1" FontSize="14"  Command="{Binding SubmitCSVExportCommand}">Export CSV Format</Button>
-        <Button Name="Password_Generator" Grid.Row="10" Background="SlateGray"  Grid.Column="1" FontSize="14"  Click="Password_Generator_Click">Password Generator</Button>
-        <Button Name="Username_generator" Grid.Column="1" Grid.Row="11" Background="SlateGray" FontSize="14" Click="Username_generator_Click" >UserName Generator</Button>
+        <Button Name="EnterNewData" Background="Orange" Grid.Row="8" Grid.Column="1" FontSize="14"  Command="{Binding SubmitNewDataCommand}" Margin="0,10,0,0">Submit</Button>
+        <Button Name="ExportCSV" Grid.Row="9" Background="Orange"  Grid.Column="1" FontSize="14"  Command="{Binding SubmitCSVExportCommand}">Export CSV Format</Button>
+        <Button Name="Password_Generator" Grid.Row="10" Background="Orange"  Grid.Column="1" FontSize="14"  Click="Password_Generator_Click">Password Generator</Button>
+        <Button Name="Username_generator" Grid.Column="1" Grid.Row="11" Background="Orange" FontSize="14" Click="Username_generator_Click" >UserName Generator</Button>
 
         
 

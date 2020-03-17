@@ -18,6 +18,7 @@ using System.Security.Cryptography;
 using System.IO;
 using CsvHelper;
 using System.Globalization;
+using PasswordManager.View;
 
 namespace PasswordManager.ViewModel
 {
@@ -28,6 +29,8 @@ namespace PasswordManager.ViewModel
         private string txtEmail;
         private string txtPass;
         private string txtWebsite;
+
+        private string _txtPassword;
 
         public DataModel STUFF //change the name
         {
@@ -48,6 +51,12 @@ namespace PasswordManager.ViewModel
         {
             get { return txtWebsite; }
             set { txtWebsite = value; }
+        }
+
+        public string txtPassword
+        {
+            get { return _txtPassword; }
+            set { _txtPassword = value; } //OnPropertyChanged(AccEmail); }
         }
 
         private ICommand _SubmitCommand;
@@ -288,16 +297,18 @@ namespace PasswordManager.ViewModel
             }
             else
             {
-                //If YES = sends all of the stored data to the desktop
+                //If YES = asks for master password and if it is enetered correctly, sends all of the stored data to the desktop
                 //Perfect if you want to use the same data in a different Password Manager quickly
-                string deviceUserName = Environment.UserName;
+                
+                  string deviceUserName = Environment.UserName;
 
-                using (var writer = new StreamWriter("C:\\Users\\" + deviceUserName + "\\Desktop\\ExportedLoginData.csv"))
-                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-                {
-                    csv.WriteRecords(AllLoginDataList);
-                    writer.Flush(); //ensure that all the data in the writer's internal buffer has been flushed to the file
-                }
+                  using (var writer = new StreamWriter("C:\\Users\\" + deviceUserName + "\\Desktop\\ExportedLoginData.csv"))
+                  using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                  {
+                  csv.WriteRecords(AllLoginDataList);
+                  writer.Flush(); //ensure that all the data in the writer's internal buffer has been flushed to the file
+                  }
+                      
             }
            
         }
