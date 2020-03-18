@@ -13,7 +13,7 @@ namespace PasswordManager.ViewModel
 {
     class PassGeneratorViewModel : INotifyPropertyChanged
     {
-
+        #region variables
         private ICommand _SubmitCommand2;
 
         private UsernameGenDataModel _test = new UsernameGenDataModel();
@@ -22,6 +22,8 @@ namespace PasswordManager.ViewModel
         private bool cannotUseUpper;
         private bool cannotUseLower;
         private bool cannotUseDigit;
+        private int passlegth;
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -57,6 +59,12 @@ namespace PasswordManager.ViewModel
             set { cannotUseDigit = value; NotifyPropertyChanged("CanUseDigit"); }
         }
 
+        public int Passlegth
+        {
+            get { return passlegth; }
+            set { passlegth = value; NotifyPropertyChanged("Passlegth"); }
+        }
+        #endregion
         public PassGeneratorViewModel()
         {
             
@@ -80,16 +88,25 @@ namespace PasswordManager.ViewModel
             string AllUsable_NoDigitsUpper = "abcdefghijklmnopqrstuvwxyz!@#$%^&*?";
             string WithoutLowerorupper = "0123456789!@#$%^&*?";
 
+            if (Passlegth <= 0)
+            {
+                Passlegth = 6;
+            }
+            if (Passlegth > 50)
+            {
+                MessageBox.Show("Password cannot exeed 50 characters!");
+                Passlegth = 50;
+            }
 
 
             Random rnd = new Random();
 
-            char[] chars = new char[20];
+            char[] chars = new char[50];
 
             //Symbols only without special chars
             if (CanUseSpecial == true && CanUseDigit == false && CanUseLower == false && CanUseUpper == false)
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < Passlegth; i++)
                 {
                     chars[i] = Usable_Symbols_NoSpecial[rnd.Next(0, Usable_Symbols_NoSpecial.Length)];
                 }
@@ -97,7 +114,7 @@ namespace PasswordManager.ViewModel
             //Symbols only without digits
             else if (CanUseSpecial == false && CanUseDigit == true && CanUseLower == false && CanUseUpper == false)
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < Passlegth; i++)
                 {
                     chars[i] = AllUsable_NoDigits[rnd.Next(0, AllUsable_NoDigits.Length)];
                 }
@@ -105,7 +122,7 @@ namespace PasswordManager.ViewModel
             //Symbols only without Lower case letters
             else if (CanUseSpecial == false && CanUseDigit == false && CanUseLower == true && CanUseUpper == false)
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < Passlegth; i++)
                 {
                     chars[i] = Usable_Symbols_NoLowerCase[rnd.Next(0, Usable_Symbols_NoLowerCase.Length)];
                 }
@@ -113,7 +130,7 @@ namespace PasswordManager.ViewModel
             //Symbols only without Upper case letters
             else if (CanUseSpecial == false && CanUseDigit == false && CanUseLower == false && CanUseUpper == true)
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < Passlegth; i++)
                 {
                     chars[i] = Usable_Symbols_NoUpperCase[rnd.Next(0, Usable_Symbols_NoUpperCase.Length)];
                 }
@@ -122,7 +139,7 @@ namespace PasswordManager.ViewModel
             // symbols witout speclials and digits
             else if (CanUseSpecial == true && CanUseDigit == true && CanUseLower == false && CanUseUpper == false)
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < Passlegth; i++)
                 {
                     chars[i] = Usable_Symbols_NoSpecialordigit[rnd.Next(0, Usable_Symbols_NoSpecialordigit.Length)];
                 }
@@ -130,7 +147,7 @@ namespace PasswordManager.ViewModel
             // symbols witout speclials and lower case
             else if (CanUseSpecial == true && CanUseDigit == false && CanUseLower == true && CanUseUpper == false)
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < Passlegth; i++)
                 {
                     chars[i] = Usable_Symbols_NoSpecialLowercase[rnd.Next(0, Usable_Symbols_NoSpecialLowercase.Length)];
                 }
@@ -138,7 +155,7 @@ namespace PasswordManager.ViewModel
             // symbols witout speclials and uppercase
             else if (CanUseSpecial == true && CanUseDigit == false && CanUseLower == false && CanUseUpper == true)
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < Passlegth; i++)
                 {
                     chars[i] = Usable_Symbols_NoSpecialUpperCase[rnd.Next(0, Usable_Symbols_NoSpecialUpperCase.Length)];
                 }
@@ -147,7 +164,7 @@ namespace PasswordManager.ViewModel
             // symbols witout digits and lower
             else if (CanUseSpecial == false && CanUseDigit == true && CanUseLower == true && CanUseUpper == false)
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < Passlegth; i++)
                 {
                     chars[i] = AllUsable_NoDigitsLower[rnd.Next(0, AllUsable_NoDigitsLower.Length)];
                 }
@@ -155,7 +172,7 @@ namespace PasswordManager.ViewModel
             // symbols witout digits and lower
             else if (CanUseSpecial == true && CanUseDigit == true && CanUseLower == false && CanUseUpper == false)
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < Passlegth; i++)
                 {
                     chars[i] = AllUsable_NoDigitsLower[rnd.Next(0, AllUsable_NoDigitsLower.Length)];
                 }
@@ -163,7 +180,7 @@ namespace PasswordManager.ViewModel
             // symbols witout digits and upper
             else if (CanUseSpecial == false && CanUseDigit == true && CanUseLower == false && CanUseUpper == true)
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < Passlegth; i++)
                 {
                     chars[i] = AllUsable_NoDigitsUpper[rnd.Next(0, AllUsable_NoDigitsUpper.Length)];
                 }
@@ -172,7 +189,7 @@ namespace PasswordManager.ViewModel
             // symbols witout lower or upper
             else if (CanUseSpecial == false && CanUseDigit == false && CanUseLower == true && CanUseUpper == true)
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < Passlegth; i++)
                 {
                     chars[i] = WithoutLowerorupper[rnd.Next(0, WithoutLowerorupper.Length)];
                 }
@@ -182,7 +199,7 @@ namespace PasswordManager.ViewModel
             // symbols witout specials, digits or lower
             else if (CanUseSpecial == true && CanUseDigit == true && CanUseLower == true && CanUseUpper == false)
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < Passlegth; i++)
                 {
                     chars[i] = nospecilaslowerdigit[rnd.Next(0, nospecilaslowerdigit.Length)];
                 }
@@ -190,7 +207,7 @@ namespace PasswordManager.ViewModel
             // symbols witout specials, digits or upper
             else if (CanUseSpecial == true && CanUseDigit == true && CanUseLower == false && CanUseUpper == true)
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < Passlegth; i++)
                 {
                     chars[i] = nospecilaslupperdigit[rnd.Next(0, nospecilaslupperdigit.Length)];
                 }
@@ -198,7 +215,7 @@ namespace PasswordManager.ViewModel
             // symbols witout specials, lower or upper
             else if (CanUseSpecial == true && CanUseDigit == false && CanUseLower == true && CanUseUpper == true)
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < Passlegth; i++)
                 {
                     chars[i] = nospecialslowerupper[rnd.Next(0, nospecialslowerupper.Length)];
                 }
@@ -206,7 +223,7 @@ namespace PasswordManager.ViewModel
             // symbols witout digits, lower or upper
             else if (CanUseSpecial == false && CanUseDigit == true && CanUseLower == true && CanUseUpper == true)
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < Passlegth; i++)
                 {
                     chars[i] = nodigitslowerupper[rnd.Next(0, nodigitslowerupper.Length)];
                 }
@@ -218,7 +235,7 @@ namespace PasswordManager.ViewModel
             // All symbols used
             else
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < Passlegth; i++)
                 {
                     chars[i] = AllUsable_Symbols[rnd.Next(0, AllUsable_Symbols.Length)];
                 }

@@ -15,6 +15,7 @@ namespace PasswordManager.Model
         private bool dontUseUpperCase;
         private bool dontUseLowerCase;
         private bool dontUseDigits;
+        private int passlegth;
 
         public UsernameGenDataModel()
         {
@@ -50,6 +51,11 @@ namespace PasswordManager.Model
         {
             get { return dontUseDigits; }
             set { dontUseDigits = value; }
+        }
+        public int Passlegth
+        {
+            get { return passlegth; }
+            set { passlegth = value; }
         }
 
 

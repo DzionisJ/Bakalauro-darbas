@@ -5,13 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PasswordManager.ViewModel"
         mc:Ignorable="d"
-        Title="Password Generator" Height="300" Width="325">
+        Title="Password Generator" Height="300" Width="800">
 
         <StackPanel Background="LightGoldenrodYellow">
 
         <TextBox Name="Generated_password_box" Text="{Binding Path=Password}" FontSize="24" IsReadOnly="True" ></TextBox>
         <Separator Height="10"></Separator>
-        <Button Name="generatepass" Background="Orange" Command="{Binding SubmitNewpass}" FontSize="24" >Generate</Button>
+        <Button Name="generatepass" Background="Orange" Command="{Binding SubmitNewpass}" FontSize="24">Generate</Button>
+            
+        <Separator></Separator>
+        <TextBox Name="GenPassLentgh" Text="{Binding Path=Passlegth}" ></TextBox>
         <Separator></Separator>
         <CheckBox Background="Orange" FontSize="14" IsChecked="{Binding CanUseSpecial, Mode=TwoWay}" >Avoid special symbols</CheckBox>
         <CheckBox Background="Orange" FontSize="14" IsChecked="{Binding CanUseUpper, Mode=TwoWay}" >Avoid UpperCase</CheckBox>
