@@ -25,5 +25,14 @@ namespace PasswordManager.View
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
+
+        private void Create_acc_button_Click(object sender, RoutedEventArgs e)
+        {
+            SignUpWindow dash = new SignUpWindow();
+            dash.Show();
+
+            LoginWindow dashboard = new LoginWindow();
+            dashboard.Close();
+        }
     }
 }

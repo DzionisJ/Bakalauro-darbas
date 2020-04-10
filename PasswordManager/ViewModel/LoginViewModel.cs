@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Security.Cryptography;
 
 namespace PasswordManager.ViewModel
 {
@@ -65,13 +66,16 @@ namespace PasswordManager.ViewModel
                 if (Conn.State == ConnectionState.Closed)
                 {
                     Conn.Open();
-                    string query = "SELECT COUNT(1) FROM LoginPasswordManager WHERE Email=@Email AND Password=@Password";
+                    string query = "SELECT COUNT(1) FROM LoginPasswordManager WHERE Email=@Email";
                     SqlCommand sqlcmd = new SqlCommand(query, Conn);
                     sqlcmd.Parameters.AddWithValue("@Email", txtUsername);
-                    sqlcmd.Parameters.AddWithValue("@Password", txtPassword);
+                //    sqlcmd.Parameters.AddWithValue("@Password",txtPassword);
                     int count = Convert.ToInt32(sqlcmd.ExecuteScalar());
                     if (count == 1)
                     {
+                      
+
+                        PasswordHash.ValidatePassword(txtPassword, getstoredhas());
                         MainWindow dashboard = new MainWindow();
                         dashboard.Show();
 
@@ -96,6 +100,41 @@ namespace PasswordManager.ViewModel
 
         }
 
+        public string getstoredhas()
+        {
+            SqlConnection Conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=LoginDB;Integrated Security=True");
+            string firstVariable = string.Empty;
+            try
+            {
+                if (Conn.State == ConnectionState.Closed)
+                {
+                    Conn.Open();
+                    string query = "SELECT Password FROM LoginPasswordManager WHERE Email=@Email";
+                    SqlCommand sqlcmd = new SqlCommand(query, Conn);
+                    sqlcmd.Parameters.AddWithValue("@Email", txtUsername);
+
+                    using (SqlDataReader reader = sqlcmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            firstVariable = reader[0].ToString();
+                        }
+                    }
+                  
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Conn.Close();
+            }
+            return firstVariable;
+
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string p)

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PasswordManager.ViewModel"
         mc:Ignorable="d"
-        Title="Login" Background="DarkGoldenrod" Height="350" Width="450">
+        Title="Login" Background="DarkGoldenrod" Height="380" Width="450">
 
     <Window.Resources>
         <local:LoginViewModel x:Key="LoginDataModel"/>
@@ -21,6 +21,7 @@
             <TextBox x:Name="txtPassword" Background="LightGray" Foreground="Black" FontSize="18" Text="{Binding Path=txtPassword, Mode=TwoWay}"></TextBox>
             <Button Name="btnSubmit" Content="Submit" Margin="60 10" Background="Orange"  
                     Foreground="White" FontSize="18" Command="{Binding LoginCommand}" />
+            <Button Name="create_acc_button" FontSize="18" Margin="60 10" Background="Orange" Foreground="White" Click="Create_acc_button_Click" >Create an account</Button>
         </StackPanel>
     </Border>
 </Window>

@@ -1,0 +1,28 @@
+﻿<Window x:Class="PasswordManager.View.SignUpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PasswordManager.ViewModel"
+        mc:Ignorable="d"
+        Title="SignUpWindow"  Background="DarkGoldenrod"  Height="400" Width="450">
+
+
+    <Window.Resources>
+        <local:SignupViewModel x:Key="SignUpDataModel"/>
+    </Window.Resources>
+
+    <Border Background="AliceBlue" Margin="35,37,35,38.8">
+        <StackPanel DataContext="{Binding Source={StaticResource SignUpDataModel}}" Background="AntiqueWhite" Margin="20">
+            <Label Content="Create an Account" Foreground="Black" FontSize="25" HorizontalAlignment="Center"></Label>
+            <Separator></Separator>
+            <Label Content="Email" Foreground="Black"></Label>
+            <TextBox x:Name="txtUsername"  Background="LightGray" Foreground="Black" FontSize="18" Text="{Binding Path=txtUsername, Mode=TwoWay}"></TextBox>
+            <Label Content="Password" Foreground="Black"></Label>
+            <TextBox x:Name="txtPassword" Background="LightGray" Foreground="Black" FontSize="18" Text="{Binding Path=txtPassword, Mode=TwoWay}"></TextBox>
+            <Button Name="btnSubmit" Content="Submit" Margin="60 10" Background="Orange"  
+                    Foreground="White" FontSize="18" Command="{Binding SignupCommand}" />
+            <Button Name="backToLoginWindow" Margin="60 10" Background="Orange" FontSize="18" Foreground="White" Click="BackToLoginWindow_Click" >Already have an account?</Button>
+        </StackPanel>
+    </Border>
+</Window>
