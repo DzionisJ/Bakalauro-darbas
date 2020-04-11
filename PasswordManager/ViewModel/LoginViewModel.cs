@@ -69,18 +69,22 @@ namespace PasswordManager.ViewModel
                     string query = "SELECT COUNT(1) FROM LoginPasswordManager WHERE Email=@Email";
                     SqlCommand sqlcmd = new SqlCommand(query, Conn);
                     sqlcmd.Parameters.AddWithValue("@Email", txtUsername);
-                //    sqlcmd.Parameters.AddWithValue("@Password",txtPassword);
+                   // sqlcmd.Parameters.AddWithValue("@Password",txtPassword);
                     int count = Convert.ToInt32(sqlcmd.ExecuteScalar());
                     if (count == 1)
                     {
-                      
+                        if (PasswordHash.ValidatePassword(txtPassword, getstoredhash()) == true)
+                        {
+                            MainWindow dashboard = new MainWindow();
+                            dashboard.Show();
 
-                        PasswordHash.ValidatePassword(txtPassword, getstoredhas());
-                        MainWindow dashboard = new MainWindow();
-                        dashboard.Show();
-
-                        LoginWindow dash = new LoginWindow();
-                        dash.Close();
+                            LoginWindow dash = new LoginWindow();
+                            dash.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Incorrect password");
+                        }
                     }
                     else
                     {
@@ -100,7 +104,7 @@ namespace PasswordManager.ViewModel
 
         }
 
-        public string getstoredhas()
+        public string getstoredhash()
         {
             SqlConnection Conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=LoginDB;Integrated Security=True");
             string firstVariable = string.Empty;
