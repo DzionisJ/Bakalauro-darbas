@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PasswordManager.ViewModel"
         mc:Ignorable="d"
-        Title="Login" Background="DarkGoldenrod" Height="380" Width="450">
+        Title="Login" Background="DarkGoldenrod" Height="400" Width="450">
 
     <Window.Resources>
         <local:LoginViewModel x:Key="LoginDataModel"/>

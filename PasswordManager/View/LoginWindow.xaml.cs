@@ -31,8 +31,7 @@ namespace PasswordManager.View
             SignUpWindow dash = new SignUpWindow();
             dash.Show();
 
-            LoginWindow dashboard = new LoginWindow();
-            dashboard.Close();
+            this.Close();
         }
     }
 }
