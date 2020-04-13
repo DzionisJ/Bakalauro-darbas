@@ -18,7 +18,6 @@ using System.Security.Cryptography;
 using System.IO;
 using CsvHelper;
 using System.Globalization;
-using PasswordManager.View;
 
 namespace PasswordManager.ViewModel
 {
@@ -196,7 +195,7 @@ namespace PasswordManager.ViewModel
         {
             //Send to DataBase
             SqlConnection connection = new SqlConnection(@"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = master; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
-            string EncryptionPass = "YB6/**ij";
+            string EncryptionPass = LoginViewModel.getstoredhash();
             try
             {
                 if (connection.State == ConnectionState.Closed)
@@ -214,8 +213,6 @@ namespace PasswordManager.ViewModel
                     if (count == 1)
                     {
                         MessageBox.Show("Data added");
-                        
-
                     }
                     else
                     {
@@ -233,7 +230,6 @@ namespace PasswordManager.ViewModel
             }
         }
 
-
         private ObservableCollection<DataModel> AllLoginDataList = new ObservableCollection<DataModel>();
         public ObservableCollection<DataModel> list
         {
@@ -249,7 +245,7 @@ namespace PasswordManager.ViewModel
         {
             list = new ObservableCollection<DataModel>();
             SqlConnection Connection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Saugomi_duom;Integrated Security=True");
-            string EncryptionPass = "YB6/**ij";
+            string EncryptionPass = LoginViewModel.getstoredhash();
             try
             {
                 if (Connection.State == ConnectionState.Closed)

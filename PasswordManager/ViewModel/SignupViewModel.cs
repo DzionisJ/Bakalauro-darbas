@@ -59,24 +59,6 @@ namespace PasswordManager.ViewModel
             }
         }
 
-        /* private static byte[] PassHashwithPBKDF2(string txtPassword)
-         {
-             const int salt_size = 24; //this size would be in bytes
-             const int hash_size = 24;
-             const int PBKDF2_Iterations = 100000;
-
-             //making of the salt
-             RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
-             byte[] salt = new byte[salt_size];
-             provider.GetBytes(salt);
-
-             //making of the hash
-             Rfc2898DeriveBytes PBKDF2 = new Rfc2898DeriveBytes(txtPassword, salt, PBKDF2_Iterations);
-             return PBKDF2.GetBytes(hash_size);
-         }
-         */
-
-
         private void BtnSubmit_Click()
         {
             SqlConnection Conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=LoginDB;Integrated Security=True");
@@ -102,7 +84,7 @@ namespace PasswordManager.ViewModel
                     }
                     else
                     {
-                        MessageBox.Show("Something went wrong");
+                        //nothing for now
                     }
                 }
             }

@@ -11,7 +11,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Security.Cryptography;
 
 namespace PasswordManager.ViewModel
 {
@@ -20,7 +19,7 @@ namespace PasswordManager.ViewModel
         #region variables
 
         private LoginDataModel _logmode;
-        private string _txtUsername;
+        private static string _txtUsername;
         private string _txtPassword;
 
         public LoginDataModel logmode
@@ -29,7 +28,7 @@ namespace PasswordManager.ViewModel
             set { _logmode = value; } //OnPropertyChanged(AccEmail); }
         }
 
-        public string txtUsername
+        public static string txtUsername
         {
             get { return _txtUsername; }
             set { _txtUsername = value; } //OnPropertyChanged(AccEmail); }
@@ -104,7 +103,7 @@ namespace PasswordManager.ViewModel
 
         }
 
-        public string getstoredhash()
+        public static string getstoredhash()
         {
             SqlConnection Conn = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=LoginDB;Integrated Security=True");
             string firstVariable = string.Empty;
