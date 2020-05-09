@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace PasswordManager.Commands
@@ -11,13 +7,11 @@ namespace PasswordManager.Commands
     {
         private Action<object> execute_command;
         private Func<object, bool> Can_execute_command;
-       // bool CanExecuteCache;
 
         public RelayCommand(Action<object> execute_command, Func<object, bool> Can_execute_command)
         {
             this.execute_command = execute_command;
             this.Can_execute_command = Can_execute_command;
-           // CanExecuteCache = CanExecuteCache;
         }
 
         public bool CanExecute(object parameter)

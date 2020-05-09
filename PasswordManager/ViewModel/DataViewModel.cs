@@ -90,6 +90,12 @@ namespace PasswordManager.ViewModel
         private void SubmitExecute() 
         {
             //function to send data to DB
+            if (string.IsNullOrEmpty(stuff.AccEmail) || string.IsNullOrEmpty(stuff.AccPassword) || string.IsNullOrEmpty(stuff.AccWebsite))
+            {
+
+                MessageBox.Show("Textfields cannot be empty!");
+            }
+            else
             sendtoDB();
         }
 
@@ -311,8 +317,9 @@ namespace PasswordManager.ViewModel
 
         private bool CanSubmitExecute(object parameter)//checks if any textboxes are empty
         {
-            if (string.IsNullOrEmpty(TXTemail) || string.IsNullOrEmpty(TXTpass) || string.IsNullOrEmpty(TXTWebsite))
+            if (string.IsNullOrEmpty(stuff.AccEmail) || string.IsNullOrEmpty(stuff.AccPassword) || string.IsNullOrEmpty(stuff.AccWebsite))
             {
+             
                 return false;
             }
             else

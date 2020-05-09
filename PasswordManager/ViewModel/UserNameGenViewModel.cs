@@ -103,7 +103,7 @@ namespace PasswordManager.ViewModel
 
 
 
-            if (UsrNameLegth <= 0)
+            if (UsrNameLegth <= 0 || UsrNameLegth <6)
             {
                 UsrNameLegth = 6;
             }
@@ -312,7 +312,7 @@ namespace PasswordManager.ViewModel
                 MessageBox.Show("Make sure to leave at least one checkbox open!");
             }
             // All symbols used
-            else
+            else if(CanUseSpecial == false && CanUseDigit == false && CanUseLower == false && CanUseUpper == false && NoAmobiguossymbols == false)
             {
                 for (int i = 0; i < UsrNameLegth; i++)
                 {
@@ -343,7 +343,7 @@ namespace PasswordManager.ViewModel
             genUser();
         }
 
-        private bool CanSubmitExecute(object parameter)//checks if any textboxes are empty need to rid of it
+        private bool CanSubmitExecute(object parameter)
         {
             if (string.IsNullOrEmpty(Username))
             {
