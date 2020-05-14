@@ -31,7 +31,7 @@ namespace PasswordManager.ViewModel
 
         private string _txtPassword;
 
-        public DataModel STUFF //change the name
+        public DataModel STUFF
         {
             get { return stuff; }
             set { stuff = value; NotifyPropertyChanged("STUFF"); }
@@ -123,7 +123,7 @@ namespace PasswordManager.ViewModel
         {
             byte[] encryptedBytes = null;
 
-            byte[] saltBytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+            byte[] saltBytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 }; //minimum salt bytes allowed is  8
 
             using (MemoryStream ms = new MemoryStream())
             {
@@ -152,7 +152,6 @@ namespace PasswordManager.ViewModel
 
         public static string DecryptText(string input, string password)
         {
-            // Get the bytes of the string
             byte[] bytesToBeDecrypted = Convert.FromBase64String(input);
             byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
             passwordBytes = SHA256.Create().ComputeHash(passwordBytes);
@@ -168,8 +167,6 @@ namespace PasswordManager.ViewModel
         {
             byte[] decryptedBytes = null;
 
-            // Set your salt here, change it to meet your flavor:
-            // The salt bytes must be at least 8 bytes.
             byte[] saltBytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
 
             using (MemoryStream ms = new MemoryStream())
@@ -219,6 +216,7 @@ namespace PasswordManager.ViewModel
                     if (count == 1)
                     {
                         MessageBox.Show("Data added");
+                        Updatelist();
                     }
                     else
                     {
@@ -273,6 +271,49 @@ namespace PasswordManager.ViewModel
                                 tempPassword = dataRead["Password"].ToString();
                                 tempWebsite = dataRead["Website"].ToString();
                                  
+                                AllLoginDataList.Add(new DataModel(DecryptText(tempEmail, EncryptionPass), DecryptText(tempPassword, EncryptionPass), DecryptText(tempWebsite, EncryptionPass)));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Connection.Close();
+            }
+        }
+
+        public void Updatelist()
+        {
+            list = new ObservableCollection<DataModel>();
+            SqlConnection Connection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Saugomi_duom;Integrated Security=True");
+            string EncryptionPass = LoginViewModel.getstoredhash();
+            try
+            {
+                if (Connection.State == ConnectionState.Closed)
+                {
+                    Connection.Open();
+                    string query = "SELECT * FROM MainInfo";
+                    SqlCommand sqlcmd = new SqlCommand(query, Connection);
+                    using (SqlDataReader dataRead = sqlcmd.ExecuteReader())
+                    {
+                        if (dataRead != null)
+                        {
+                            while (dataRead.Read())
+                            {
+                                string tempEmail;
+                                string tempPassword;
+                                string tempWebsite;
+
+                                tempEmail = dataRead["Email"].ToString();
+                                tempPassword = dataRead["Password"].ToString();
+                                tempWebsite = dataRead["Website"].ToString();
+
                                 AllLoginDataList.Add(new DataModel(DecryptText(tempEmail, EncryptionPass), DecryptText(tempPassword, EncryptionPass), DecryptText(tempWebsite, EncryptionPass)));
                             }
                         }
