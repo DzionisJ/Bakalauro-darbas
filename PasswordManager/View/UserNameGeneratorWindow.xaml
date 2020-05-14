@@ -6,19 +6,19 @@
         xmlns:local="clr-namespace:PasswordManager.ViewModel"
         mc:Ignorable="d"
         Title="Username Generator"  Height="300" Width="800">
-    <StackPanel Background="LightGoldenrodYellow">
+    <StackPanel Background="DarkGray">
 
         <TextBox Name="Generated_username_box" Text="{Binding Path=Username}" FontSize="24" IsReadOnly="True" ></TextBox>
         <Separator Height="10"></Separator>
-        <Button Name="generateusername" Background="Orange" Command="{Binding SubmitNewUsername}" FontSize="24" >Generate</Button>
+        <Button Name="generateusername" Background="Black" Foreground="white" Command="{Binding SubmitNewUsername}" FontSize="24" >Generate</Button>
 
         <Separator></Separator>
         <TextBox Name="GenUsrnameLentgh" Text="{Binding Path=UsrNameLegth}" ></TextBox>
         <Separator></Separator>
-        <CheckBox Background="Orange" FontSize="14" IsChecked="{Binding CanUseSpecial, Mode=TwoWay}" >Avoid special symbols</CheckBox>
-        <CheckBox Background="Orange" FontSize="14" IsChecked="{Binding CanUseUpper, Mode=TwoWay}" >Avoid UpperCase</CheckBox>
-        <CheckBox Background="Orange" FontSize="14" IsChecked="{Binding CanUseLower, Mode=TwoWay}" >Avoid LowerCase</CheckBox>
-        <CheckBox Background="Orange" FontSize="14" IsChecked="{Binding CanUseDigit, Mode=TwoWay}" >Avoid Digits</CheckBox>
-        <CheckBox Background="Orange" FontSize="14" IsChecked="{Binding NoAmobiguossymbols, Mode=TwoWay}" >Avoid I, 1, 0 and O</CheckBox>
+        <CheckBox Background="Green" FontSize="14" IsChecked="{Binding CanUseSpecial, Mode=TwoWay}" >Avoid special symbols</CheckBox>
+        <CheckBox Background="Green" FontSize="14" IsChecked="{Binding CanUseUpper, Mode=TwoWay}" >Avoid UpperCase</CheckBox>
+        <CheckBox Background="Green" FontSize="14" IsChecked="{Binding CanUseLower, Mode=TwoWay}" >Avoid LowerCase</CheckBox>
+        <CheckBox Background="Green" FontSize="14" IsChecked="{Binding CanUseDigit, Mode=TwoWay}" >Avoid Digits</CheckBox>
+        <CheckBox Background="Green" FontSize="14" IsChecked="{Binding NoAmobiguossymbols, Mode=TwoWay}" >Avoid I, 1, 0 and O</CheckBox>
     </StackPanel>
 </Window>

@@ -5,23 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PasswordManager.ViewModel"
         mc:Ignorable="d"
-        Title="Login" Background="DarkGoldenrod" Height="400" Width="450">
+        Title="Login" Background="Black" Height="400" Width="450">
 
     <Window.Resources>
         <local:LoginViewModel x:Key="LoginDataModel"/>
     </Window.Resources>
 
-    <Border Background="AliceBlue" Margin="35,37,35,38.8">
-        <StackPanel DataContext="{Binding Source={StaticResource LoginDataModel}}" Background="AntiqueWhite" Margin="20">
+    <Border Background="DarkGray" Margin="35,37,35,38.8">
+        <StackPanel DataContext="{Binding Source={StaticResource LoginDataModel}}" Background="DarkGray" Margin="20">
             <Label Content="Welcome" Foreground="Black" FontSize="25" HorizontalAlignment="Center"></Label>
             <Separator></Separator>
             <Label Content="Email" Foreground="Black"></Label>
             <TextBox x:Name="txtUsername"  Background="LightGray" Foreground="Black" FontSize="18" Text="{Binding Path=txtUsername, Mode=TwoWay}"></TextBox>
             <Label Content="Password" Foreground="Black"></Label>
             <TextBox x:Name="txtPassword" Background="LightGray" Foreground="Black" FontSize="18" Text="{Binding Path=txtPassword, Mode=TwoWay}"></TextBox>
-            <Button Name="btnSubmit" Content="Submit" Margin="60 10" Background="Orange"  
-                    Foreground="White" FontSize="18" Command="{Binding LoginCommand}" />
-            <Button Name="create_acc_button" FontSize="18" Margin="60 10" Background="Orange" Foreground="White" Click="Create_acc_button_Click" >Create an account</Button>
+            <Button Name="btnSubmit" Content="Submit" Margin="60 10" Background="Black"  
+                    Foreground="white" FontSize="18" Command="{Binding LoginCommand}" />
+            <Button Name="create_acc_button" FontSize="18" Margin="60 10" Background="Black" Foreground="white" Click="Create_acc_button_Click" >Create an account</Button>
         </StackPanel>
     </Border>
 </Window>

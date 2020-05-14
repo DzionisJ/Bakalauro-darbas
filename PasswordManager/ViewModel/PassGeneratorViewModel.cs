@@ -92,16 +92,16 @@ namespace PasswordManager.ViewModel
             {
                 Passlegth = 6;
             }
-            if (Passlegth > 50)
+            if (Passlegth > 30)
             {
-                MessageBox.Show("Password cannot exeed 50 characters!");
-                Passlegth = 50;
+                MessageBox.Show("Password cannot exeed 30 characters!");
+                Passlegth = 30;
             }
 
 
             Random rnd = new Random();
 
-            char[] chars = new char[50];
+            char[] chars = new char[30];
 
             //Symbols only without special chars
             if (CanUseSpecial == true && CanUseDigit == false && CanUseLower == false && CanUseUpper == false)

@@ -107,16 +107,16 @@ namespace PasswordManager.ViewModel
             {
                 UsrNameLegth = 6;
             }
-            if (UsrNameLegth > 50)
+            if (UsrNameLegth > 30)
             {
-                MessageBox.Show("Username cannot exeed 50 characters!");
-                UsrNameLegth = 50;
+                MessageBox.Show("Username cannot exeed 30 characters!");
+                UsrNameLegth = 30;
             }
 
 
             Random rnd = new Random();
 
-            char[] chars = new char[50];
+            char[] chars = new char[30];
 
             //Symbols only without special chars
             if (CanUseSpecial == true && CanUseDigit == false && CanUseLower == false && CanUseUpper == false && NoAmobiguossymbols == false)
