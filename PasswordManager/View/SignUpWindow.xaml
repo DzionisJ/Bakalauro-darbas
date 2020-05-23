@@ -19,7 +19,7 @@
             <Label Content="Email" Foreground="Black"></Label>
             <TextBox x:Name="txtUsername"  Background="LightGray" Foreground="Black" FontSize="18" Text="{Binding Path=txtUsername, Mode=TwoWay}"></TextBox>
             <Label Content="Password" Foreground="Black"></Label>
-            <TextBox x:Name="txtPassword" Background="LightGray" Foreground="Black" FontSize="18" Text="{Binding Path=txtPassword, Mode=TwoWay}"></TextBox>
+            <TextBox x:Name="txtPassword" Background="LightGray" Foreground="Black" FontSize="18" Text="{Binding Path=txtPassword, Mode=TwoWay}"  FontFamily="pack://application:,,,/Resources/#password"></TextBox>
             <Button Name="btnSubmit" Content="Submit" Margin="60 10" Background="Black"  
                     Foreground="white" FontSize="18" Command="{Binding SignupCommand}" />
             <Button Name="backToLoginWindow" Margin="60 10" Background="Black" FontSize="18" Foreground="white" Click="BackToLoginWindow_Click" >Already have an account?</Button>

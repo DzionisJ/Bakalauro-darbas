@@ -16,13 +16,13 @@ namespace PasswordManager.Model
         public string UserName
         {
             get { return _Username; }
-            set { _Username = value; } //OnPropertyChanged(AccEmail); }
+            set { _Username = value; } 
         }
 
         public string PassWord
         {
             get { return _Password; }
-            set { _Password = value; } //OnPropertyChanged(AccEmail); }
+            set { _Password = value; } 
         }
 
 

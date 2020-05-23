@@ -25,19 +25,19 @@ namespace PasswordManager.ViewModel
         public LoginDataModel logmode
         {
             get { return _logmode; }
-            set { _logmode = value; } //OnPropertyChanged(AccEmail); }
+            set { _logmode = value; } 
         }
 
         public static string txtUsername
         {
             get { return _txtUsername; }
-            set { _txtUsername = value; } //OnPropertyChanged(AccEmail); }
+            set { _txtUsername = value; } 
         }
 
         public string txtPassword
         {
             get { return _txtPassword; }
-            set { _txtPassword = value; } //OnPropertyChanged(AccEmail); }
+            set { _txtPassword = value; } 
         }
 
         private ICommand loginCommand;
