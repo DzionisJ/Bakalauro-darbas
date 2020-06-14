@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PasswordManager.Model
 {
@@ -13,7 +9,7 @@ namespace PasswordManager.Model
 
         public const int SaltByteSize = 24;
         public const int HashByteSize = 20; // match the size of the PBKDF2-HMAC-SHA-1 hash 
-        public const int Pbkdf2Iterations = 1000000;//standart iteration cound used by professional Password managers
+        public const int Pbkdf2Iterations = 1000000;//standard iteration count used by professional Password managers
         public const int IterationIndex = 0;
         public const int SaltIndex = 1;
         public const int Pbkdf2Index = 2;

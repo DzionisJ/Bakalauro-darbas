@@ -47,5 +47,23 @@ namespace PasswordManager
             UserNameGeneratorWindow dash = new UserNameGeneratorWindow();
             dash.Show();
         }
+
+        int a = 0;
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button currentButton = sender as Button;
+
+            if (a == 0)
+            {
+                passcollumn.FontFamily = new FontFamily("Comic Sans MS");
+                a = 1;
+            }
+            else if (a == 1)
+            {
+                passcollumn.FontFamily = new FontFamily ("pack://application:,,,/Resources/#password");
+                a = 0;
+
+            }
+        }
     }
 }

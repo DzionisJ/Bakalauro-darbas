@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 using System.Data.SqlClient;
-using MySql.Data;
 using System.Data;
 using System.Windows;
 using PasswordManager.Model;
@@ -334,13 +330,13 @@ namespace PasswordManager.ViewModel
         private void ExportCSV()
         {
 
-            if (MessageBox.Show("Are you sure you wish all of your Login data to be exported to the Desktop?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            if (MessageBox.Show("Are you sure you wish all of your stored Login data to be exported to the Desktop?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
             {
                // IF NO = Do nothing
             }
             else
             {
-                //If YES = asks for master password and if it is enetered correctly, sends all of the stored data to the desktop
+                //If YES = sends all of the stored data to the desktop
                 //Perfect if you want to use the same data in a different Password Manager quickly
                 
                   string deviceUserName = Environment.UserName;

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:PasswordManager.ViewModel"
         mc:Ignorable="d"
-        Title="Manager" Height="450" Width="850" ResizeMode="NoResize" Background="LightGray">
+        Title="Manager" Height="450" Width="900" ResizeMode="NoResize" Background="LightGray">
 
 
     <Window.Resources>
@@ -92,8 +92,17 @@
 
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Email/Username" FontSize="14" Binding="{Binding AccEmail}"/>
-                    <DataGridTextColumn Header="Password" FontSize="14" Binding="{Binding AccPassword}"/>
-                    <DataGridTextColumn Header="Website/App" FontSize="14" Binding="{Binding AccWebsite}"/>
+                    <DataGridTextColumn x:Name="passcollumn" Header=" | Password"   FontSize="14" FontFamily="pack://application:,,,/Resources/#password" Binding="{Binding AccPassword}" />
+                    <DataGridTextColumn Header=" | Website/App" FontSize="14" Binding="{Binding AccWebsite}"/>
+
+                    <DataGridTemplateColumn Header=" | Hide">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Show/hide" Click="Button_Click" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
                 </DataGrid.Columns>
             </DataGrid>
             
